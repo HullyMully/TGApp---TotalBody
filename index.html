@@ -3,114 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Total Body - Студия растяжки</title>
+    <title>Total Body</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Total Body</h1>
-            <div id="studio-selector">
-                <select id="studio-select">
-                    <option value="studio1">Студия на Вернадского</option>
-                </select>
-            </div>
-        </header>
-
-        <main>
-            <section id="trial-booking" class="section">
-                <h2>Запись на пробное занятие</h2>
-                <form id="booking-form">
-                    <input type="text" id="name" placeholder="Ваше имя" required>
-                    <input type="tel" id="phone" placeholder="Телефон" required>
-                    <input type="date" id="date" required>
-                    <button type="submit">Записаться</button>
-                </form>
-            </section>
-
-            <section id="payment" class="section">
-                <h2>Оплата</h2>
-                <div id="payment-widget" class="widget-container">
-                    <div class="widget-placeholder">Виджет оплаты в разработке</div>
-                </div>
-            </section>
-
-            <section id="schedule" class="section">
-                <h2>Расписание</h2>
-                <div class="widget-container">
-                    <iframe src="https://infototalbodyonline.impulsecrm.ru/widget/360" frameborder="0"></iframe>
-                </div>
-            </section>
-
-            <section id="personal-account" class="section">
-                <h2>Личный кабинет</h2>
-                <div class="widget-container">
-                    <iframe src="https://infototalbodyonline.impulsecrm.ru/widget/361" frameborder="0"></iframe>
-                </div>
-            </section>
-
-            <section id="trainers" class="section">
-                <h2>Наши тренеры</h2>
-                <div class="trainers-grid">
-                    <div class="trainer-card">
-                        <img src="placeholder.jpg" alt="Тренер 1">
-                        <h3>Анна Петрова</h3>
-                        <p>Опыт: 5 лет</p>
-                        <p>Специализация: Растяжка, йога</p>
-                    </div>
-                    <div class="trainer-card">
-                        <img src="placeholder.jpg" alt="Тренер 2">
-                        <h3>Мария Иванова</h3>
-                        <p>Опыт: 3 года</p>
-                        <p>Специализация: Пилатес, стретчинг</p>
-                    </div>
-                    <div class="trainer-card">
-                        <img src="placeholder.jpg" alt="Тренер 3">
-                        <h3>Елена Смирнова</h3>
-                        <p>Опыт: 4 года</p>
-                        <p>Специализация: танцы, растяжка</p>
-                    </div>
-                    <div class="trainer-card">
-                        <img src="placeholder.jpg" alt="Тренер 4">
-                        <h3>Ольга Кузнецова</h3>
-                        <p>Опыт: 2 года</p>
-                        <p>Специализация: фитнес, стретчинг</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="studio-info" class="section">
-                <h2>О студии</h2>
-                <div class="studio-details">
-                    <!-- Контент будет добавлен динамически через JavaScript -->
-                </div>
-            </section>
-
-            <section id="reviews" class="section">
-                <h2>Отзывы</h2>
-                <form id="review-form">
-                    <div class="rating-container">
-                        <label>Оценка:</label>
-                        <div class="rating">
-                            <input type="radio" id="star5" name="rating" value="5" required>
-                            <label for="star5">5</label>
-                            <input type="radio" id="star4" name="rating" value="4">
-                            <label for="star4">4</label>
-                            <input type="radio" id="star3" name="rating" value="3">
-                            <label for="star3">3</label>
-                            <input type="radio" id="star2" name="rating" value="2">
-                            <label for="star2">2</label>
-                            <input type="radio" id="star1" name="rating" value="1">
-                            <label for="star1">1</label>
-                        </div>
-                    </div>
-                    <textarea id="review-text" placeholder="Оставьте свой отзыв" required></textarea>
-                    <button type="submit">Отправить отзыв</button>
-                </form>
-            </section>
+    <div id="app">
+        <main id="main-content">
+            <!-- Pages will be loaded here -->
         </main>
+
+        <nav class="tab-bar">
+            <button class="tab-item active" data-page="home">
+                <span class="tab-icon">🏠</span>
+                <span class="tab-label">Главная</span>
+            </button>
+            <button class="tab-item" data-page="schedule">
+                <span class="tab-icon">📅</span>
+                <span class="tab-label">Расписание</span>
+            </button>
+            <button class="tab-item" data-page="account">
+                <span class="tab-icon">👤</span>
+                <span class="tab-label">Профиль</span>
+            </button>
+        </nav>
     </div>
-    <script src="app.js"></script>
+    <script src="client.js"></script>
 </body>
-</html> 
+</html>
