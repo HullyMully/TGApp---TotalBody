@@ -1,9 +1,13 @@
 :root {
-    --burgundy: #800033;
-    --beige: #F5E6D3;
-    --orange: #FF6B35;
+    --purple: #6B4EFF;
+    --teal: #00B4D8;
+    --beige: #F5F5DC;
+    --orange: #FF6B4E;
+    --burgundy: #8B0000;
     --dark-burgundy: #66002A;
     --light-beige: #FFF5EC;
+    --dark-gray: #333;
+    --light-gray: #f5f5f5;
 }
 
 * {
@@ -13,13 +17,51 @@
 }
 
 body {
-    font-family: 'BrandFont', sans-serif;
-    background-color: var(--light-beige);
-    color: var(--burgundy);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--beige);
+    color: #333;
     line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    padding-bottom: 60px;
+}
+
+.app-container {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    min-height: 100vh;
+    position: relative;
+}
+
+.scrollable-content {
+    width: 100%;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+.screen-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+}
+
+.carousel-card {
+    min-width: 250px;
+    height: 300px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #app {
@@ -787,6 +829,26 @@ button:hover {
         position: static;
         margin-top: 0.5rem;
     }
+
+    .screen-section {
+        padding: 15px;
+    }
+
+    .carousel-card {
+        min-width: 200px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .screen-section {
+        padding: 10px;
+    }
+
+    .carousel-card {
+        min-width: 180px;
+        height: 220px;
+    }
 }
 
 .widget-placeholder {
@@ -896,4 +958,298 @@ button:hover {
 .about-content a:hover {
     color: var(--orange);
     text-decoration: underline;
+}
+
+/* Стили для нового дизайна */
+.header-bg {
+    background-size: cover;
+    background-position: center;
+    padding: 40px 20px;
+    color: var(--tg-theme-text-color);
+    text-align: center;
+    position: relative;
+}
+
+.header-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.header-bg > * {
+    position: relative;
+    z-index: 2;
+}
+
+.header-bg h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.header-bg .tagline {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.header-bg .offer {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    color: #ff6b6b;
+}
+
+.cta-button {
+    background-color: var(--tg-theme-button-color);
+    color: var(--tg-theme-button-text-color);
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-bottom: 30px;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.features li {
+    font-size: 1.1em;
+    color: var(--tg-theme-hint-color);
+}
+
+/* Стили для попапа */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: var(--tg-theme-bg-color);
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--tg-theme-hint-color);
+}
+
+.popup form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.popup h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.popup input,
+.popup select {
+    padding: 12px;
+    border: 1px solid var(--tg-theme-hint-color);
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.popup button[type="submit"] {
+    background-color: var(--tg-theme-button-color);
+    color: var(--tg-theme-button-text-color);
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.popup button[type="submit"]:hover {
+    opacity: 0.9;
+}
+
+/* Стили для страницы тренировок */
+.trainings-content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.trainings-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--burgundy);
+    font-size: 1.8em;
+    line-height: 1.3;
+}
+
+.trainings-intro {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--tg-theme-hint-color);
+    font-size: 1.1em;
+    line-height: 1.5;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.trainings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.training-card {
+    background: var(--tg-theme-bg-color);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.training-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.training-icon {
+    font-size: 2.5em;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.training-card h3 {
+    color: var(--burgundy);
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.training-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.training-benefits li {
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    color: var(--tg-theme-text-color);
+}
+
+.training-benefits li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-size: 1.2em;
+}
+
+.training-formats {
+    color: var(--tg-theme-hint-color);
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .trainings-content {
+        padding: 15px;
+    }
+
+    .trainings-content h2 {
+        font-size: 1.5em;
+    }
+
+    .trainings-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .training-card {
+        padding: 20px;
+    }
+}
+
+.trainers-carousel.carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+    margin-bottom: 20px;
+}
+
+.trainers-carousel .carousel-card {
+    min-width: 220px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 12px;
+    text-align: center;
+}
+
+.trainers-carousel .carousel-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    border: 3px solid var(--orange, #FF6B4E);
+}
+
+.trainers-carousel .carousel-card h3 {
+    margin: 0 0 6px 0;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.trainers-carousel .carousel-card p {
+    margin: 0 0 4px 0;
+    font-size: 0.95em;
+    color: #444;
 }

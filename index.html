@@ -3,27 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Total Body - Фитнес-студия</title>
+    <title>Total Body</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="app-container">
-        <div id="main-content"></div>
-        <nav class="tab-bar">
-            <div class="tab-item active" data-page="home">
-                <span class="tab-icon">🏠</span>
-                <span class="tab-label">Главная</span>
-            </div>
-            <div class="tab-item" data-page="schedule">
-                <span class="tab-icon">📅</span>
-                <span class="tab-label">Расписание</span>
-            </div>
-            <div class="tab-item" data-page="account">
-                <span class="tab-icon">👤</span>
-                <span class="tab-label">Личный кабинет</span>
-            </div>
-        </nav>
+        <div class="scrollable-content"></div>
     </div>
     <script src="client.js"></script>
 </body>

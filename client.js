@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    const mainContent = document.getElementById('main-content');
+    const mainContent = document.querySelector('.scrollable-content');
     const tabs = document.querySelectorAll('.tab-item');
     let currentPageId = 'home'; // Добавляем отслеживание текущей страницы
 
@@ -47,28 +47,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     name: "Анастасия Рустамова",
                     specialization: "Растяжка, Йога",
                     experience: "6 лет",
-                    photo: "https://randomuser.me/api/portraits/women/32.jpg", // TODO: Заменить на реальное фото тренера
+                    photo: "source/trainers/Рустамова Анастасия.jpeg", // TODO: Заменить на реальное фото тренера
                     description: "Анастасия — тренер с 6-летним опытом, кандидат в мастера спорта по синхронному фигурному катанию, многократная чемпионка России и Европы. С раннего детства в спорте — от фигурного катания и художественной гимнастики до сноуборда и вейксёрфа. Проводит персональные и групповые тренировки в мини-группах до 8 человек. Работает с подростками и взрослыми, создавая атмосферу поддержки, движения и заботы о теле. Вдохновляет личным примером: совмещает тренерство с нутрициологией, регулярно учится и планирует освоить массаж. Верит, что спорт помогает не только телу, но и уму — восстанавливает, заряжает и возвращает к себе. Любит путешествия, русскую музыку и всё, что связано с активной жизнью. На её тренировках — результат с душой."
                 },
                 {
                     name: "Наталья Королёва",
                     specialization: "Фитнес, Эмоциональное восстановление",
                     experience: "12 лет",
-                    photo: "https://randomuser.me/api/portraits/women/44.jpg", // TODO: Заменить на реальное фото тренера
+                    photo: "source/trainers/Королёва Наталья.jpeg", // TODO: Заменить на реальное фото тренера
                     description: "Наталья пришла в фитнес в 2012 году как участница, а сегодня — сертифицированный тренер и кандидат биологических наук. Она совмещает научный подход с личным опытом, создавая осознанные и эффективные тренировки. Проводит занятия в мини-группах и больших залах, делая акцент не только на физический результат, но и на эмоциональное восстановление. Её путь — от полного подростка до профессионального тренера — вдохновляет тех, кто хочет меняться и чувствовать поддержку. Наталья продолжает развиваться, обучаясь новым методикам. Её занятия наполнены вниманием, заботой и энергией. Любит танцы, сайкл и прогулки — всё, что заряжает и помогает быть в ресурсе. Если тебе нужен тренер с душой и научным подходом — тебе к Наталье."
                 },
                 {
                     name: "Ирина Мозалева",
                     specialization: "Хатха-йога, Гвоздестояние",
                     experience: "1 год",
-                    photo: "https://randomuser.me/api/portraits/women/68.jpg", // TODO: Заменить на реальное фото тренера
+                    photo: "source/trainers/Мозалёва Ирина.jpeg", // TODO: Заменить на реальное фото тренера
                     description: "Ирина — инструктор хатха-йоги с академическим образованием (МГУ, филология) и сертификацией YTTC-200 Федерации йоги России. Её занятия — это баланс практики, философии и осознанности, где физическая нагрузка сочетается с внутренним спокойствием. С раннего детства Ирина занималась балетом и фитнесом, но именно йога стала её путём к ментальной устойчивости. Более года она проводит групповые и индивидуальные тренировки, включая гвоздестояние — для глубокого расслабления и концентрации. Вне практики Ирина любит читать, учит французский и увлекается плаванием. Она создаёт пространство, где каждый может почувствовать себя услышанным и вдохновлённым. Если тебе важна гармония тела и разума — занятия с Ириной помогут найти устойчивость и силу внутри себя."
                 },
                 {
                     name: "Наталья Зуева",
                     specialization: "Пилатес, Стретчинг, Здоровая спина",
                     experience: "Не указан",
-                    photo: "https://randomuser.me/api/portraits/women/91.jpg", // TODO: Заменить на реальное фото тренера
+                    photo: "source/trainers/Зуева Наталья.jpeg", // TODO: Заменить на реальное фото тренера
                     description: "Наталья — сертифицированный тренер с высшим образованием (СПБГУСЭ, «Сервис») и дипломами в сфере фитнеса, включая пилатес и тренажёрный зал. Её подход — это сочетание знаний, внимания к деталям и заботы о каждом клиенте. Она ведёт групповые тренировки по пилатесу, стретчингу и «Здоровой спине», сочетая эффективность и мягкость. Спорт сопровождает её с 7 лет: за плечами — победы в волейболе и участие в соревнованиях по лёгкой атлетике, баскетболу и метанию гранаты. С 2024 года, переехав в Москву, Наталья активно развивает себя как тренер, создавая занятия, которые укрепляют тело и возвращают внутреннее равновесие. Вдохновляется музыкой, танцами и дизайном — и переносит это творчество в свои тренировки. Если вы хотите улучшить осанку, стать гибче и сильнее — тренировки с Натальей помогут вам почувствовать тело и наполниться энергией."
                 }
             ],
@@ -151,92 +151,250 @@ document.addEventListener('DOMContentLoaded', () => {
     const pages = {
         home: `
             <div class="home-content">
-                <header>
-                    <div class="logo">
-                        <img src="logo.png" alt="Total Body" class="logo-image">
-                        <h1>Total Body</h1>
-                        <p class="tagline">Студия современного фитнеса</p>
-                    </div>
-                    <div class="studio-selector">
-                        <select id="studio-select" class="studio-select">
-                            ${studios.map(studio => `
-                                <option value="${studio.id}">${studio.name}</option>
-                            `).join('')}
-                        </select>
-                    </div>
+                <header class="header-bg" style="background-image: url('https://via.placeholder.com/400x300?text=Background');">
+                    <h1>Красота и стройность — просто. Как улыбка.</h1>
+                    <p>Твоя красота начинается здесь. Женские тренировки рядом с домом: растяжка, аэройога, танцы, фитнес, здоровая спина.</p>
+                    <p>🔥 Пробное занятие с профессиональным тренером — всего за 500 ₽. Попробуй любое направление в поддерживающей атмосфере.</p>
+                    <button class="cta-button" onclick="showPopup()">Записаться на пробное за 500 ₽</button>
+                    <ul>
+                        <li>⬤ Подходит даже с нуля</li>
+                        <li>⬤ Группы до 15 человек</li>
+                        <li>⬤ Опытные тренеры с индивидуальным подходом</li>
+                    </ul>
                 </header>
-                <section class="section" id="about-studio">
-                    <h2>О студии</h2>
-                    <div class="about-content">
-                        <p>${studios[0].description}</p>
-                        <div class="studio-photos">
-                            ${studios[0].photos.map(photo => `
-                                <img src="${photo}" alt="Фото студии" class="studio-photo">
-                            `).join('')}
-                        </div>
-                        <h3>Информация</h3>
-                        <ul>
-                            <li>Адрес: <a href="${studios[0].addressLink}" class="address-link">${studios[0].address}</a></li>
-                            <li>Телефон: <a href="tel:${studios[0].phone}">${studios[0].phone}</a></li>
-                            <li>Режим работы: ${studios[0].schedule}</li>
-                        </ul>
-                        <h3>Удобства</h3>
-                        <ul>
-                            ${studios[0].amenities.map(amenity => `<li>${amenity}</li>`).join('')}
-                        </ul>
-                    </div>
-                </section>
-                <section class="section">
-                    <h2>Запись на пробное занятие</h2>
-                    <form id="booking-form">
-                        <input type="text" id="name" name="name" placeholder="Ваше имя" required>
-                        <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
-                        <input type="date" id="date" name="date" required>
-                        <div class="button-group">
-                            <button type="submit" class="button">Записаться</button>
-                            <button type="button" class="button payment-button">Оплатить пробное занятие</button>
-                        </div>
-                    </form>
-                </section>
-                <section class="section" id="trainers">
-                    <h2>Наши тренеры</h2>
-                    <div class="trainers-grid">
-                        ${studios[0].trainers.map(trainer => `
-                            <div class="trainer-card">
-                                <img src="${trainer.photo}" alt="${trainer.name}">
-                                <h3>${trainer.name}</h3>
-                                <p>Опыт: ${trainer.experience}</p>
-                                <p>Специализация: ${trainer.specialization}</p>
-                                <p class="trainer-description">${trainer.description}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </section>
-                <section class="section">
-                    <h2>Отзывы</h2>
-                    <div class="reviews-section">
-                        <h3>Оценка:</h3>
-                        <div class="rating-buttons">
-                            <button class="rating-btn" data-rating="5">5</button>
-                            <button class="rating-btn" data-rating="4">4</button>
-                            <button class="rating-btn" data-rating="3">3</button>
-                            <button class="rating-btn" data-rating="2">2</button>
-                            <button class="rating-btn" data-rating="1">1</button>
-                        </div>
-                        <textarea class="review-input" id="review-text" placeholder="Оставьте свой отзыв"></textarea>
-                        <button class="submit-review">Отправить отзыв</button>
-                    </div>
-                </section>
+                <div class="reviews-carousel carousel">
+                    <div class="carousel-card">⭐⭐⭐⭐⭐ Отзыв</div>
+                    <div class="carousel-card">⭐⭐⭐⭐⭐ Отзыв</div>
+                    <div class="carousel-card">⭐⭐⭐⭐⭐ Отзыв</div>
+                </div>
             </div>
         `,
-        schedule: `
-            <div class="schedule-container">
-                <iframe id="widgetSchedule" src="about:blank" frameborder="0" allowfullscreen></iframe>
+        directions: `
+            <div class="directions-content">
+                <h2>Выбери своё направление — тренировка, которая подойдёт именно тебе</h2>
+                <p>У нас нет «сложных» тренировок — только те, которые помогают раскрыть тело и почувствовать себя лучше. Ты можешь начать с любого формата — даже если никогда раньше не занималась.</p>
+                <div class="trainings-carousel carousel">
+                    <div class="carousel-card">
+                        <span>🧘</span>
+                        <h3>Растяжка</h3>
+                        <p>мягкое развитие гибкости, расслабление мышц</p>
+                    </div>
+                    <div class="carousel-card">
+                        <span>🌬</span>
+                        <h3>Аэройога</h3>
+                        <p>тренировки в гамаках, снятие напряжения</p>
+                    </div>
+                    <div class="carousel-card">
+                        <span>💪</span>
+                        <h3>Фитнес</h3>
+                        <p>силовые и кардио-тренировки, укрепление</p>
+                    </div>
+                    <div class="carousel-card">
+                        <span>💃</span>
+                        <h3>High Heels & Strip Dance</h3>
+                        <p>танцы на каблуках, развитие пластики</p>
+                    </div>
+                    <div class="carousel-card">
+                        <span>🏋️‍♀️</span>
+                        <h3>Здоровая спина</h3>
+                        <p>программа для снятия зажатости</p>
+                    </div>
+                    <div class="carousel-card">
+                        <span>🌀</span>
+                        <h3>МФР</h3>
+                        <p>расслабление через дыхание и роллы</p>
+                    </div>
+                </div>
+                <div class="additional-block">
+                    <p>💡 Не знаешь, с чего начать? Запишись на пробное.</p>
+                </div>
+                <button class="cta-button" onclick="showPopup()">Попробовать пробную тренировку за 500 ₽</button>
+            </div>
+        `,
+        'trainers-schedule': `
+            <div class="trainers-schedule-content">
+                <h2>Тренеры и расписание</h2>
+                
+                <div class="trainers-carousel carousel">
+                    ${studios[0].trainers.map(trainer => `
+                        <div class="carousel-card">
+                            <img src="${trainer.photo}" alt="${trainer.name}">
+                            <h3>${trainer.name}</h3>
+                            <p>${trainer.specialization}</p>
+                            <p>Опыт: ${trainer.experience}</p>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <p>Расписание доступно после записи</p>
             </div>
         `,
         account: `
             <div class="personal-account-container">
                 <iframe id="widgetAccount" src="about:blank" frameborder="0" allowfullscreen></iframe>
+            </div>
+        `,
+        trainings: `
+            <div class="trainings-content">
+                <h2>Что выбрать? Тренировки, которые подходят под твой ритм и желания</h2>
+                <p class="trainings-intro">Ты не обязана всё знать заранее. Просто выбери, что тебе сейчас ближе — расслабиться, укрепиться или добавить энергии. А мы подскажем, что подойдёт.</p>
+                <div class="trainings-grid">
+                    <div class="training-card">
+                        <span class="training-icon">💪</span>
+                        <h3>Силовые и кардио-тренировки</h3>
+                        <ul class="training-benefits">
+                            <li>подтянуть тело</li>
+                            <li>сбросить напряжение</li>
+                            <li>энергия и контроль</li>
+                        </ul>
+                        <p class="training-formats">Форматы: функциональный фитнес, женские круговые, кардио-миксы</p>
+                    </div>
+                    <div class="training-card">
+                        <span class="training-icon">🧘</span>
+                        <h3>Растяжка и мягкие тренировки</h3>
+                        <ul class="training-benefits">
+                            <li>гибкость без насилия</li>
+                            <li>снятие напряжения</li>
+                            <li>слушать тело</li>
+                        </ul>
+                        <p class="training-formats">Форматы: стретчинг, шпагаты, мягкое вытяжение</p>
+                    </div>
+                    <div class="training-card">
+                        <span class="training-icon">🌬</span>
+                        <h3>Йога и аэройога</h3>
+                        <ul class="training-benefits">
+                            <li>отпустить тревожность</li>
+                            <li>осанка и дыхание</li>
+                            <li>разгрузка</li>
+                        </ul>
+                        <p class="training-formats">Форматы: хатха, аэройога в гамаках, дыхательные практики</p>
+                    </div>
+                    <div class="training-card">
+                        <span class="training-icon">💃</span>
+                        <h3>Танцевальные направления</h3>
+                        <ul class="training-benefits">
+                            <li>раскрыть женственность</li>
+                            <li>уверенность</li>
+                            <li>пластика</li>
+                        </ul>
+                        <p class="training-formats">Форматы: high heels, strip plastic, frame up, женская хореография</p>
+                    </div>
+                </div>
+            </div>
+        `,
+        'video-faq-geo': `
+            <div class="video-faq-geo-content">
+                <h2>Видео, FAQ, Как нас найти</h2>
+                
+                <div class="video-section">
+                    <iframe src="https://via.placeholder.com/400x300?text=Video" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div class="faq-section">
+                    <dl>
+                        <dt>Какие абонементы у вас есть?</dt>
+                        <dd>У нас есть несколько вариантов абонементов:
+                            <ul>
+                                <li>Утренние (до 14:00)</li>
+                                <li>Дневные (с 14:00 до 17:00)</li>
+                                <li>Полный день</li>
+                                <li>Индивидуальные занятия</li>
+                            </ul>
+                        </dd>
+
+                        <dt>Как записаться на пробное занятие?</dt>
+                        <dd>Вы можете записаться на пробное занятие через наш сайт, по телефону или в студии. Пробное занятие стоит 500 рублей.</dd>
+
+                        <dt>Что нужно взять с собой на первое занятие?</dt>
+                        <dd>Спортивную форму, сменную обувь, полотенце и бутылку воды. Все необходимое оборудование предоставляется студией.</dd>
+
+                        <dt>Есть ли у вас раздевалки и душевые?</dt>
+                        <dd>Да, в каждой студии есть комфортные раздевалки с душевыми кабинами, шкафчиками и фенами.</dd>
+
+                        <dt>Можно ли заниматься с нуля?</dt>
+                        <dd>Конечно! Наши тренеры адаптируют программу под ваш уровень подготовки. Есть специальные группы для начинающих.</dd>
+
+                        <dt>Как часто нужно заниматься?</dt>
+                        <dd>Рекомендуем заниматься 2-3 раза в неделю для достижения оптимальных результатов. Но график можно подобрать индивидуально.</dd>
+
+                        <dt>Есть ли у вас парковка?</dt>
+                        <dd>Да, у каждой студии есть парковка. Подробности можно уточнить у администратора.</dd>
+                    </dl>
+                </div>
+
+                <div id="map" style="height: 300px;"></div>
+            </div>
+        `,
+        'social-geo': `
+            <div class="social-geo-content">
+                <h2>Социальные сети и контакты</h2>
+                
+                <div class="social-section">
+                    <ul class="social-links">
+                        <li>
+                            <a href="https://t.me/TotalBodyVernadskogo" class="social-link telegram">
+                                <span class="social-icon">📱</span>
+                                Telegram
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://vk.com/totalbody" class="social-link vk">
+                                <span class="social-icon">💬</span>
+                                VK
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://instagram.com/totalbody" class="social-link instagram">
+                                <span class="social-icon">📸</span>
+                                Instagram
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="contact-section">
+                    <h3>Наши студии</h3>
+                    <ul class="studios-list">
+                        ${studios.map(studio => `
+                            <li>
+                                <a href="${studio.addressLink}" class="studio-link">
+                                    <strong>${studio.name}</strong>
+                                    <span>${studio.address}</span>
+                                    <span class="schedule">${studio.schedule}</span>
+                                </a>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            </div>
+        `,
+        'reviews-photos': `
+            <div class="reviews-photos-content">
+                <h2>Отзывы и фото</h2>
+                
+                <div class="reviews-section">
+                    <div class="rating-buttons">
+                        <button class="rating-btn" data-rating="1">1</button>
+                        <button class="rating-btn" data-rating="2">2</button>
+                        <button class="rating-btn" data-rating="3">3</button>
+                        <button class="rating-btn" data-rating="4">4</button>
+                        <button class="rating-btn" data-rating="5">5</button>
+                    </div>
+                    <textarea id="review-text" placeholder="Оставьте отзыв"></textarea>
+                    <button class="submit-review">Отправить отзыв</button>
+                </div>
+
+                <div class="photos-carousel carousel">
+                    <div class="carousel-card">
+                        <img src="https://via.placeholder.com/400x300?text=Фото+студии+1" alt="Фото студии">
+                    </div>
+                    <div class="carousel-card">
+                        <img src="https://via.placeholder.com/400x300?text=Фото+студии+2" alt="Фото студии">
+                    </div>
+                    <div class="carousel-card">
+                        <img src="https://via.placeholder.com/400x300?text=Фото+студии+3" alt="Фото студии">
+                    </div>
+                </div>
             </div>
         `
     };
@@ -251,59 +409,19 @@ document.addEventListener('DOMContentLoaded', () => {
         bookingForm: null
     };
 
-    // Show page content
-    function showPage(pageId) {
-        console.log('Showing page:', pageId);
-        currentPageId = pageId;
-        mainContent.innerHTML = pages[pageId];
-        tabs.forEach(tab => {
-            tab.classList.toggle('active', tab.dataset.page === pageId);
-        });
-
-        // Исправлено: асинхронная инициализация селектора для корректной работы DOM
-        setTimeout(() => {
-            // Обновляем DOM элементы после рендеринга страницы
-            DOM.scheduleContainer = document.querySelector('.schedule-container') || null;
-            DOM.personalAccountContainer = document.querySelector('.personal-account-container') || null;
-            DOM.studioSelect = document.querySelector('#studio-select') || null;
-            DOM.aboutStudio = document.querySelector('#about-studio') || null;
-            DOM.trainers = document.querySelector('#trainers') || null;
-            DOM.bookingForm = document.querySelector('#booking-form') || null;
-
-            // Инициализация после рендеринга
-            initializeApp();
-            
-            // Загружаем виджеты при переключении страниц
-            if (pageId === 'schedule') {
-                const widgetSchedule = document.getElementById('widgetSchedule');
-                if (widgetSchedule) {
-                    console.log('Loading schedule widget');
-                    widgetSchedule.src = studios[0].widgets.schedule;
-                }
-            } else if (pageId === 'account') {
-                const widgetAccount = document.getElementById('widgetAccount');
-                if (widgetAccount) {
-                    console.log('Loading account widget');
-                    widgetAccount.src = studios[0].widgets.account;
-                }
-            }
-        }, 0);
-    }
-
-    // Tab click handlers
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            showPage(tab.dataset.page);
-        });
-    });
-
-    // Форматирование даты
-    function formatDate(date) {
-        return date.toLocaleDateString('ru-RU', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
+    // Удаляем showPage и обработчики табов
+    // Добавляем функцию для длинной страницы
+    function renderScrollableContent() {
+        if (!mainContent) return;
+        mainContent.innerHTML = [
+            pages.home,
+            pages.directions,
+            pages['trainers-schedule'],
+            pages['video-faq-geo'],
+            pages['reviews-photos'],
+            pages['social-geo']
+        ].map(section => `<div class="screen-section">${section}</div>`).join('');
+        initializeApp();
     }
 
     // Инициализация приложения
@@ -319,10 +437,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 nameInput.value = `${userData.first_name} ${userData.last_name || ''}`.trim();
                 console.log('Name field populated:', nameInput.value);
             }
-            // Обновлено: реальная подписка на Telegram-бота с проверкой однократной подписки
             subscribeToBot();
         } else {
             console.warn('User data not available');
+        }
+
+        // Инициализация карты
+        const mapElement = document.getElementById('map');
+        if (mapElement) {
+            const map = L.map('map').setView([55.686320, 37.524659], 12);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Добавляем маркеры для каждой студии
+            studios.forEach(studio => {
+                const [lat, lng] = studio.addressLink.replace('geo:', '').split(',').map(Number);
+                L.marker([lat, lng])
+                    .bindPopup(`
+                        <strong>${studio.name}</strong><br>
+                        ${studio.address}<br>
+                        ${studio.phone}
+                    `)
+                    .addTo(map);
+            });
         }
 
         // Инициализация селектора студий
@@ -386,9 +524,17 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
+        // Обновляем фото в секции отзывов
+        const reviewsPhotos = document.querySelector('.reviews-photos .studio-photos');
+        if (reviewsPhotos) {
+            reviewsPhotos.innerHTML = studio.photos.map(photo => `
+                <img src="${photo}" alt="Фото студии" class="studio-photo">
+            `).join('');
+        }
+
         if (DOM.trainers) {
             DOM.trainers.innerHTML = `
-                <h2>Наши тренеры</h2>
+                <h3>Тренеры</h3>
                 <div class="trainers-grid">
                     ${studio.trainers.map(trainer => `
                         <div class="trainer-card">
@@ -404,7 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Обновляем виджеты для выбранной студии
-        if (currentPageId === 'schedule' && DOM.scheduleContainer) {
+        if (currentPageId === 'trainers-schedule' && DOM.scheduleContainer) {
             const widgetSchedule = document.getElementById('widgetSchedule');
             if (widgetSchedule) {
                 console.log('Loading schedule widget for studio:', studio.name);
@@ -421,9 +567,75 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Функция для показа попапа с формой
+    function showPopup() {
+        console.log('Popup opened');
+        
+        // Создаем элементы попапа
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content';
+        
+        const closeButton = document.createElement('button');
+        closeButton.className = 'popup-close';
+        closeButton.innerHTML = '×';
+        closeButton.onclick = () => {
+            document.body.removeChild(popup);
+        };
+        
+        const form = document.createElement('form');
+        form.innerHTML = `
+            <h2>Запись на пробное занятие</h2>
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <input type="tel" name="phone" placeholder="Телефон" required>
+            <select name="direction" required>
+                <option value="">Выберите направление</option>
+                <option value="Растяжка">Растяжка</option>
+                <option value="Аэройога">Аэройога</option>
+                <option value="Фитнес">Фитнес</option>
+                <option value="Танцы">Танцы</option>
+                <option value="Здоровая спина">Здоровая спина</option>
+            </select>
+            <button type="submit">Отправить</button>
+        `;
+        
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            console.log('Form submitted from popup');
+            
+            const formData = new FormData(form);
+            const data = {
+                type: 'popup_booking',
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                direction: formData.get('direction')
+            };
+            
+            tg.sendData(JSON.stringify(data));
+            document.body.removeChild(popup);
+            alert('Спасибо за запись! Мы свяжемся с вами в ближайшее время.');
+        };
+        
+        popupContent.appendChild(closeButton);
+        popupContent.appendChild(form);
+        popup.appendChild(popupContent);
+        document.body.appendChild(popup);
+    }
+
     // Инициализация обработчиков событий
     function initializeEventHandlers() {
         console.log('Initializing event handlers');
+
+        // Обработчик для CTA кнопки
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+            ctaButton.addEventListener('click', () => {
+                console.log('CTA button clicked');
+                showPopup();
+            });
+        }
 
         // Обработчик отправки формы записи
         if (DOM.bookingForm) {
@@ -500,7 +712,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Обработчики для виджетов
-        if (currentPageId === 'schedule') {
+        if (currentPageId === 'trainers-schedule') {
             const widgetSchedule = document.getElementById('widgetSchedule');
             if (widgetSchedule) {
                 console.log('Loading schedule widget');
@@ -634,5 +846,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Show initial page
-    showPage('home');
+    renderScrollableContent();
 });
