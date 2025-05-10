@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mainContent = document.getElementById('main-content');
     const tabs = document.querySelectorAll('.tab-item');
+    let currentPageId = 'home'; // Добавляем отслеживание текущей страницы
 
     // Данные для расписания
     const scheduleData = {
@@ -26,137 +27,123 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-    // Данные для личного кабинета
-    const mockUserData = {
-        name: 'Иван Иванов',
-        phone: '+7 (999) 123-45-67',
-        email: 'ivan@example.com',
-        studio: 'Студия на Вернадского',
-        joinDate: '2024-01-15'
-    };
-
-    const mockSubscriptions = [
-        {
-            id: 1,
-            name: 'Базовый абонемент',
-            startDate: '2024-03-01',
-            endDate: '2024-03-31',
-            visitsLeft: 8,
-            status: 'active'
-        },
-        {
-            id: 2,
-            name: 'Премиум абонемент',
-            startDate: '2024-04-01',
-            endDate: '2024-04-30',
-            visitsLeft: 12,
-            status: 'pending'
-        }
-    ];
-
-    const mockHistory = [
-        {
-            date: '2024-03-15',
-            time: '18:00',
-            class: 'Растяжка',
-            trainer: 'Анна Петрова',
-            status: 'completed'
-        },
-        {
-            date: '2024-03-13',
-            time: '11:00',
-            class: 'Йога',
-            trainer: 'Мария Иванова',
-            status: 'completed'
-        }
-    ];
-
-    // Данные о студиях
+    // Обновлено: добавлены данные для нескольких студий
     const studios = [
         {
             id: 1,
-            name: 'Студия на Вернадского',
-            address: 'пр-т Вернадского, 78',
-            phone: '+7 (495) 123-45-67',
-            schedule: 'Пн-Вс: 07:00 - 23:00',
+            name: "Студия на Вернадского",
+            address: "Москва, Вернадского 15",
+            addressLink: "geo:55.686320,37.524659",
+            phone: "+7 915 064 0309",
+            schedule: "Пн-Вс: 07:00 - 23:00",
+            description: "Современная студия с новейшим оборудованием. Просторные залы для групповых и индивидуальных занятий.",
+            photos: [
+                "https://via.placeholder.com/400x300?text=Студия+1",
+                "https://via.placeholder.com/400x300?text=Студия+2"
+            ],
+            amenities: ["Раздевалки с душевыми", "Зона отдыха", "Бесплатный Wi-Fi", "Парковка"],
             trainers: [
                 {
-                    name: 'Анна Петрова',
-                    specialization: 'Растяжка, Йога',
-                    experience: '5 лет',
-                    photo: 'https://randomuser.me/api/portraits/women/32.jpg'
+                    name: "Анастасия Рустамова",
+                    specialization: "Растяжка, Йога",
+                    experience: "6 лет",
+                    photo: "https://randomuser.me/api/portraits/women/32.jpg", // TODO: Заменить на реальное фото тренера
+                    description: "Анастасия — тренер с 6-летним опытом, кандидат в мастера спорта по синхронному фигурному катанию, многократная чемпионка России и Европы. С раннего детства в спорте — от фигурного катания и художественной гимнастики до сноуборда и вейксёрфа. Проводит персональные и групповые тренировки в мини-группах до 8 человек. Работает с подростками и взрослыми, создавая атмосферу поддержки, движения и заботы о теле. Вдохновляет личным примером: совмещает тренерство с нутрициологией, регулярно учится и планирует освоить массаж. Верит, что спорт помогает не только телу, но и уму — восстанавливает, заряжает и возвращает к себе. Любит путешествия, русскую музыку и всё, что связано с активной жизнью. На её тренировках — результат с душой."
                 },
                 {
-                    name: 'Мария Иванова',
-                    specialization: 'Пилатес, Функциональный тренинг',
-                    experience: '7 лет',
-                    photo: 'https://randomuser.me/api/portraits/women/44.jpg'
+                    name: "Наталья Королёва",
+                    specialization: "Фитнес, Эмоциональное восстановление",
+                    experience: "12 лет",
+                    photo: "https://randomuser.me/api/portraits/women/44.jpg", // TODO: Заменить на реальное фото тренера
+                    description: "Наталья пришла в фитнес в 2012 году как участница, а сегодня — сертифицированный тренер и кандидат биологических наук. Она совмещает научный подход с личным опытом, создавая осознанные и эффективные тренировки. Проводит занятия в мини-группах и больших залах, делая акцент не только на физический результат, но и на эмоциональное восстановление. Её путь — от полного подростка до профессионального тренера — вдохновляет тех, кто хочет меняться и чувствовать поддержку. Наталья продолжает развиваться, обучаясь новым методикам. Её занятия наполнены вниманием, заботой и энергией. Любит танцы, сайкл и прогулки — всё, что заряжает и помогает быть в ресурсе. Если тебе нужен тренер с душой и научным подходом — тебе к Наталье."
+                },
+                {
+                    name: "Ирина Мозалева",
+                    specialization: "Хатха-йога, Гвоздестояние",
+                    experience: "1 год",
+                    photo: "https://randomuser.me/api/portraits/women/68.jpg", // TODO: Заменить на реальное фото тренера
+                    description: "Ирина — инструктор хатха-йоги с академическим образованием (МГУ, филология) и сертификацией YTTC-200 Федерации йоги России. Её занятия — это баланс практики, философии и осознанности, где физическая нагрузка сочетается с внутренним спокойствием. С раннего детства Ирина занималась балетом и фитнесом, но именно йога стала её путём к ментальной устойчивости. Более года она проводит групповые и индивидуальные тренировки, включая гвоздестояние — для глубокого расслабления и концентрации. Вне практики Ирина любит читать, учит французский и увлекается плаванием. Она создаёт пространство, где каждый может почувствовать себя услышанным и вдохновлённым. Если тебе важна гармония тела и разума — занятия с Ириной помогут найти устойчивость и силу внутри себя."
+                },
+                {
+                    name: "Наталья Зуева",
+                    specialization: "Пилатес, Стретчинг, Здоровая спина",
+                    experience: "Не указан",
+                    photo: "https://randomuser.me/api/portraits/women/91.jpg", // TODO: Заменить на реальное фото тренера
+                    description: "Наталья — сертифицированный тренер с высшим образованием (СПБГУСЭ, «Сервис») и дипломами в сфере фитнеса, включая пилатес и тренажёрный зал. Её подход — это сочетание знаний, внимания к деталям и заботы о каждом клиенте. Она ведёт групповые тренировки по пилатесу, стретчингу и «Здоровой спине», сочетая эффективность и мягкость. Спорт сопровождает её с 7 лет: за плечами — победы в волейболе и участие в соревнованиях по лёгкой атлетике, баскетболу и метанию гранаты. С 2024 года, переехав в Москву, Наталья активно развивает себя как тренер, создавая занятия, которые укрепляют тело и возвращают внутреннее равновесие. Вдохновляется музыкой, танцами и дизайном — и переносит это творчество в свои тренировки. Если вы хотите улучшить осанку, стать гибче и сильнее — тренировки с Натальей помогут вам почувствовать тело и наполниться энергией."
                 }
             ],
-            description: 'Современная студия с новейшим оборудованием. Просторные залы для групповых и индивидуальных занятий.',
-            amenities: [
-                'Раздевалки с душевыми',
-                'Зона отдыха',
-                'Бесплатный Wi-Fi',
-                'Парковка'
-            ]
+            widgets: {
+                schedule: "https://infototalbodyonline.impulsecrm.ru/widget/360",
+                account: "https://infototalbodyonline.impulsecrm.ru/widget/361"
+            }
         },
         {
             id: 2,
-            name: 'Студия на Новом Арбате',
-            address: 'ул. Новый Арбат, 21',
-            phone: '+7 (495) 234-56-78',
-            schedule: 'Пн-Вс: 08:00 - 22:00',
+            name: "Студия на Ленинском",
+            address: "Москва, Ленинский проспект 30",
+            addressLink: "geo:55.701320,37.564659",
+            phone: "+7 915 064 0308",
+            schedule: "Пн-Вс: 08:00 - 22:00",
+            description: "Уютная студия в историческом центре. Современное оборудование и индивидуальный подход к каждому клиенту.",
+            photos: [
+                "https://via.placeholder.com/400x300?text=Студия+Ленинский+1",
+                "https://via.placeholder.com/400x300?text=Студия+Ленинский+2"
+            ],
+            amenities: ["Раздевалки", "Зона отдыха", "Wi-Fi", "Парковка", "Кофейня"],
             trainers: [
                 {
-                    name: 'Елена Смирнова',
-                    specialization: 'Йога, Медитация',
-                    experience: '8 лет',
-                    photo: 'https://randomuser.me/api/portraits/women/68.jpg'
+                    name: "Елена Соколова",
+                    specialization: "Йога, Пилатес",
+                    experience: "8 лет",
+                    photo: "https://randomuser.me/api/portraits/women/45.jpg",
+                    description: "Сертифицированный инструктор по йоге и пилатесу с 8-летним опытом."
                 },
                 {
-                    name: 'Алексей Козлов',
-                    specialization: 'Функциональный тренинг, Кроссфит',
-                    experience: '6 лет',
-                    photo: 'https://randomuser.me/api/portraits/men/45.jpg'
+                    name: "Алексей Петров",
+                    specialization: "Функциональный тренинг",
+                    experience: "5 лет",
+                    photo: "https://randomuser.me/api/portraits/men/32.jpg",
+                    description: "Мастер спорта по легкой атлетике, специалист по функциональному тренингу."
                 }
             ],
-            description: 'Уютная студия в центре города с панорамными окнами и современным оборудованием.',
-            amenities: [
-                'Раздевалки с душевыми',
-                'Зона отдыха',
-                'Бесплатный Wi-Fi',
-                'Велостоянка'
-            ]
+            widgets: {
+                schedule: "https://example.com/widget/schedule-2",
+                account: "https://example.com/widget/account-2"
+            }
         },
         {
             id: 3,
-            name: 'Студия на Тверской',
-            address: 'ул. Тверская, 15',
-            phone: '+7 (495) 345-67-89',
-            schedule: 'Пн-Вс: 07:00 - 23:00',
+            name: "Студия на Тверской",
+            address: "Москва, Тверская 20",
+            addressLink: "geo:55.761320,37.604659",
+            phone: "+7 915 064 0307",
+            schedule: "Пн-Вс: 09:00 - 21:00",
+            description: "Премиальная студия в самом центре Москвы. Эксклюзивные программы и персональные тренировки.",
+            photos: [
+                "https://via.placeholder.com/400x300?text=Студия+Тверская+1",
+                "https://via.placeholder.com/400x300?text=Студия+Тверская+2"
+            ],
+            amenities: ["VIP раздевалки", "SPA-зона", "Премиум Wi-Fi", "Подземная парковка", "Ресторан"],
             trainers: [
                 {
-                    name: 'Дмитрий Волков',
-                    specialization: 'Силовые тренировки, TRX',
-                    experience: '10 лет',
-                    photo: 'https://randomuser.me/api/portraits/men/22.jpg'
+                    name: "Мария Иванова",
+                    specialization: "Стретчинг, Балет",
+                    experience: "10 лет",
+                    photo: "https://randomuser.me/api/portraits/women/22.jpg",
+                    description: "Бывшая балерина Большого театра, эксперт по стретчингу и балетной подготовке."
                 },
                 {
-                    name: 'Ольга Новикова',
-                    specialization: 'Пилатес, Растяжка',
-                    experience: '4 года',
-                    photo: 'https://randomuser.me/api/portraits/women/91.jpg'
+                    name: "Дмитрий Смирнов",
+                    specialization: "Силовые тренировки",
+                    experience: "7 лет",
+                    photo: "https://randomuser.me/api/portraits/men/55.jpg",
+                    description: "Мастер спорта по тяжелой атлетике, специалист по силовым тренировкам."
                 }
             ],
-            description: 'Премиальная студия с эксклюзивным оборудованием и индивидуальным подходом к каждому клиенту.',
-            amenities: [
-                'Раздевалки с душевыми',
-                'Зона отдыха',
-                'Бесплатный Wi-Fi',
-                'Подземная парковка',
-                'SPA-зона'
-            ]
+            widgets: {
+                schedule: "https://example.com/widget/schedule-3",
+                account: "https://example.com/widget/account-3"
+            }
         }
     ];
 
@@ -166,14 +153,15 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="home-content">
                 <header>
                     <div class="logo">
-                        <img src="https://via.placeholder.com/120" alt="Total Body" class="logo-image">
+                        <img src="logo.png" alt="Total Body" class="logo-image">
                         <h1>Total Body</h1>
                         <p class="tagline">Студия современного фитнеса</p>
                     </div>
                     <div class="studio-selector">
                         <select id="studio-select" class="studio-select">
-                            <option value="">Выберите студию</option>
-                            ${studios.map(studio => `<option value="${studio.id}">${studio.name}</option>`).join('')}
+                            ${studios.map(studio => `
+                                <option value="${studio.id}">${studio.name}</option>
+                            `).join('')}
                         </select>
                     </div>
                 </header>
@@ -181,10 +169,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2>О студии</h2>
                     <div class="about-content">
                         <p>${studios[0].description}</p>
+                        <div class="studio-photos">
+                            ${studios[0].photos.map(photo => `
+                                <img src="${photo}" alt="Фото студии" class="studio-photo">
+                            `).join('')}
+                        </div>
                         <h3>Информация</h3>
                         <ul>
-                            <li>Адрес: ${studios[0].address}</li>
-                            <li>Телефон: ${studios[0].phone}</li>
+                            <li>Адрес: <a href="${studios[0].addressLink}" class="address-link">${studios[0].address}</a></li>
+                            <li>Телефон: <a href="tel:${studios[0].phone}">${studios[0].phone}</a></li>
                             <li>Режим работы: ${studios[0].schedule}</li>
                         </ul>
                         <h3>Удобства</h3>
@@ -199,7 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <input type="text" id="name" name="name" placeholder="Ваше имя" required>
                         <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
                         <input type="date" id="date" name="date" required>
-                        <button type="submit">Записаться</button>
+                        <div class="button-group">
+                            <button type="submit" class="button">Записаться</button>
+                            <button type="button" class="button payment-button">Оплатить пробное занятие</button>
+                        </div>
                     </form>
                 </section>
                 <section class="section" id="trainers">
@@ -211,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <h3>${trainer.name}</h3>
                                 <p>Опыт: ${trainer.experience}</p>
                                 <p>Специализация: ${trainer.specialization}</p>
+                                <p class="trainer-description">${trainer.description}</p>
                             </div>
                         `).join('')}
                     </div>
@@ -228,94 +225,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <textarea class="review-input" id="review-text" placeholder="Оставьте свой отзыв"></textarea>
                         <button class="submit-review">Отправить отзыв</button>
-                        <div class="reviews-list"></div>
                     </div>
                 </section>
             </div>
         `,
         schedule: `
             <div class="schedule-container">
-                <div class="schedule-nav">
-                    <button class="prev-week">←</button>
-                    <span class="week-range">${formatDate(new Date(scheduleData.weeks[0].startDate))} - ${formatDate(new Date(scheduleData.weeks[0].endDate))}</span>
-                    <button class="next-week">→</button>
-                </div>
-                <div class="schedule-grid">
-                    ${scheduleData.weeks[0].days.map(day => `
-                        <div class="schedule-day">
-                            <h3>${formatDate(new Date(day.date))}</h3>
-                            ${day.classes.map(lesson => `
-                                <div class="schedule-lesson">
-                                    <div class="lesson-time">${lesson.time}</div>
-                                    <div class="lesson-info">
-                                        <h4>${lesson.name}</h4>
-                                        <p>Тренер: ${lesson.trainer}</p>
-                                        <p>Мест: ${lesson.enrolled}/${lesson.capacity}</p>
-                                    </div>
-                                    <button class="enroll-button" ${lesson.enrolled >= lesson.capacity ? 'disabled' : ''}>
-                                        ${lesson.enrolled >= lesson.capacity ? 'Нет мест' : 'Записаться'}
-                                    </button>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `).join('')}
-                </div>
+                <iframe id="widgetSchedule" src="about:blank" frameborder="0" allowfullscreen></iframe>
             </div>
         `,
         account: `
             <div class="personal-account-container">
-                <div class="profile-info">
-                    <h3>Мои данные</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <label>Имя:</label>
-                            <span>${mockUserData.name}</span>
-                        </div>
-                        <div class="info-item">
-                            <label>Телефон:</label>
-                            <span>${mockUserData.phone}</span>
-                        </div>
-                        <div class="info-item">
-                            <label>Email:</label>
-                            <span>${mockUserData.email}</span>
-                        </div>
-                        <div class="info-item">
-                            <label>Студия:</label>
-                            <span>${mockUserData.studio}</span>
-                        </div>
-                        <div class="info-item">
-                            <label>Дата регистрации:</label>
-                            <span>${formatDate(new Date(mockUserData.joinDate))}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="subscriptions-grid">
-                    <h3>Мои абонементы</h3>
-                    ${mockSubscriptions.map(sub => `
-                        <div class="subscription-card ${sub.status}">
-                            <h4>${sub.name}</h4>
-                            <p>Период: ${formatDate(new Date(sub.startDate))} - ${formatDate(new Date(sub.endDate))}</p>
-                            <p>Осталось посещений: ${sub.visitsLeft}</p>
-                            <span class="status-badge">${getStatusText(sub.status)}</span>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="history-list">
-                    <h3>История занятий</h3>
-                    ${mockHistory.map(lesson => `
-                        <div class="history-item ${lesson.status}">
-                            <div class="history-date">
-                                <span class="date">${formatDate(new Date(lesson.date))}</span>
-                                <span class="time">${lesson.time}</span>
-                            </div>
-                            <div class="history-info">
-                                <h4>${lesson.class}</h4>
-                                <p>Тренер: ${lesson.trainer}</p>
-                            </div>
-                            <span class="status-badge">${getStatusText(lesson.status)}</span>
-                        </div>
-                    `).join('')}
-                </div>
+                <iframe id="widgetAccount" src="about:blank" frameborder="0" allowfullscreen></iframe>
             </div>
         `
     };
@@ -327,28 +248,46 @@ document.addEventListener('DOMContentLoaded', () => {
         studioSelect: null,
         aboutStudio: null,
         trainers: null,
-        bookingForm: null,
-        reviewsList: null
+        bookingForm: null
     };
 
     // Show page content
     function showPage(pageId) {
+        console.log('Showing page:', pageId);
+        currentPageId = pageId;
         mainContent.innerHTML = pages[pageId];
         tabs.forEach(tab => {
             tab.classList.toggle('active', tab.dataset.page === pageId);
         });
 
-        // Обновляем DOM элементы после рендеринга страницы
-        DOM.scheduleContainer = document.querySelector('.schedule-container');
-        DOM.personalAccountContainer = document.querySelector('.personal-account-container');
-        DOM.studioSelect = document.querySelector('#studio-select');
-        DOM.aboutStudio = document.querySelector('#about-studio');
-        DOM.trainers = document.querySelector('#trainers');
-        DOM.bookingForm = document.querySelector('#booking-form');
-        DOM.reviewsList = document.querySelector('.reviews-list');
+        // Исправлено: асинхронная инициализация селектора для корректной работы DOM
+        setTimeout(() => {
+            // Обновляем DOM элементы после рендеринга страницы
+            DOM.scheduleContainer = document.querySelector('.schedule-container') || null;
+            DOM.personalAccountContainer = document.querySelector('.personal-account-container') || null;
+            DOM.studioSelect = document.querySelector('#studio-select') || null;
+            DOM.aboutStudio = document.querySelector('#about-studio') || null;
+            DOM.trainers = document.querySelector('#trainers') || null;
+            DOM.bookingForm = document.querySelector('#booking-form') || null;
 
-        // Инициализация после рендеринга
-        initializeApp();
+            // Инициализация после рендеринга
+            initializeApp();
+            
+            // Загружаем виджеты при переключении страниц
+            if (pageId === 'schedule') {
+                const widgetSchedule = document.getElementById('widgetSchedule');
+                if (widgetSchedule) {
+                    console.log('Loading schedule widget');
+                    widgetSchedule.src = studios[0].widgets.schedule;
+                }
+            } else if (pageId === 'account') {
+                const widgetAccount = document.getElementById('widgetAccount');
+                if (widgetAccount) {
+                    console.log('Loading account widget');
+                    widgetAccount.src = studios[0].widgets.account;
+                }
+            }
+        }, 0);
     }
 
     // Tab click handlers
@@ -367,17 +306,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Получение текста статуса
-    function getStatusText(status) {
-        const statusMap = {
-            active: 'Активен',
-            pending: 'Ожидает',
-            completed: 'Завершено',
-            cancelled: 'Отменено'
-        };
-        return statusMap[status] || status;
-    }
-
     // Инициализация приложения
     function initializeApp() {
         console.log('App initialization started');
@@ -391,6 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 nameInput.value = `${userData.first_name} ${userData.last_name || ''}`.trim();
                 console.log('Name field populated:', nameInput.value);
             }
+            // Обновлено: реальная подписка на Telegram-бота
+            subscribeToBot();
+        } else {
+            console.warn('User data not available');
         }
 
         // Инициализация селектора студий
@@ -399,9 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Инициализация обработчиков событий
         initializeEventHandlers();
 
-        // Инициализация списка отзывов
-        updateReviewsList();
-
         console.log('App initialization completed');
     }
 
@@ -409,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeStudioSelector() {
         console.log('Initializing studio selector');
         if (!DOM.studioSelect) {
-            console.warn('Studio select element not found');
+            console.warn('Studio select element still not found after delay');
             return;
         }
 
@@ -422,23 +351,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Инициализируем информацию о первой студии
-        if (studios.length > 0) {
-            console.log('Initializing first studio info');
-            updateStudioInfo(studios[0]);
+        const firstStudio = studios[0];
+        if (firstStudio) {
+            console.log('Initializing with first studio:', firstStudio.name);
+            updateStudioInfo(firstStudio);
         }
     }
 
-    // Обновление информации о студии
+    // Обновлено: обработка виджетов для разных студий
     function updateStudioInfo(studio) {
+        console.log('Updating studio info:', studio.name);
+        
         if (DOM.aboutStudio) {
             DOM.aboutStudio.innerHTML = `
                 <h2>О студии</h2>
                 <div class="about-content">
                     <p>${studio.description}</p>
+                    <div class="studio-photos">
+                        ${studio.photos.map(photo => `
+                            <img src="${photo}" alt="Фото студии" class="studio-photo">
+                        `).join('')}
+                    </div>
                     <h3>Информация</h3>
                     <ul>
-                        <li>Адрес: ${studio.address}</li>
-                        <li>Телефон: ${studio.phone}</li>
+                        <li>Адрес: <a href="${studio.addressLink}" class="address-link">${studio.address}</a></li>
+                        <li>Телефон: <a href="tel:${studio.phone}">${studio.phone}</a></li>
                         <li>Режим работы: ${studio.schedule}</li>
                     </ul>
                     <h3>Удобства</h3>
@@ -459,10 +396,28 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h3>${trainer.name}</h3>
                             <p>Опыт: ${trainer.experience}</p>
                             <p>Специализация: ${trainer.specialization}</p>
+                            <p class="trainer-description">${trainer.description}</p>
                         </div>
                     `).join('')}
                 </div>
             `;
+        }
+
+        // Обновляем виджеты для выбранной студии
+        if (currentPageId === 'schedule' && DOM.scheduleContainer) {
+            const widgetSchedule = document.getElementById('widgetSchedule');
+            if (widgetSchedule) {
+                console.log('Loading schedule widget for studio:', studio.name);
+                widgetSchedule.src = studio.widgets.schedule;
+            }
+        }
+        
+        if (currentPageId === 'account' && DOM.personalAccountContainer) {
+            const widgetAccount = document.getElementById('widgetAccount');
+            if (widgetAccount) {
+                console.log('Loading account widget for studio:', studio.name);
+                widgetAccount.src = studio.widgets.account;
+            }
         }
     }
 
@@ -478,6 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const formData = new FormData(DOM.bookingForm);
                 const bookingData = {
+                    type: 'booking',
                     name: formData.get('name'),
                     phone: formData.get('phone'),
                     date: formData.get('date'),
@@ -491,6 +447,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Спасибо за запись! Мы свяжемся с вами в ближайшее время.');
                 DOM.bookingForm.reset();
             });
+
+            // Обновлено: финализация логики оплаты через личный кабинет
+            const paymentButton = DOM.bookingForm.querySelector('.payment-button');
+            if (paymentButton) {
+                paymentButton.addEventListener('click', () => {
+                    console.log('Payment button clicked');
+                    alert('Вы будете перенаправлены в личный кабинет для оплаты.');
+                    console.log('Redirecting to account page for payment');
+                    showPage('account');
+                });
+            }
+        }
+
+        // Обработчики для виджетов
+        if (currentPageId === 'schedule') {
+            const widgetSchedule = document.getElementById('widgetSchedule');
+            if (widgetSchedule) {
+                console.log('Loading schedule widget');
+                widgetSchedule.src = studios[0].widgets.schedule;
+            }
+        }
+
+        if (currentPageId === 'account') {
+            const widgetAccount = document.getElementById('widgetAccount');
+            if (widgetAccount) {
+                console.log('Loading account widget');
+                widgetAccount.src = studios[0].widgets.account;
+            }
         }
 
         // Обработчики для кнопок рейтинга
@@ -529,87 +513,74 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Анонимный пользователь';
                 console.log('User name for review:', userName);
 
-                const review = {
-                    rating: parseInt(selectedRating.dataset.rating),
-                    text: reviewText,
-                    date: new Date().toISOString(),
-                    userName: userName
-                };
-                console.log('Review object created:', review);
+                const rating = parseInt(selectedRating.dataset.rating);
+                if (rating === 5) {
+                    console.log('Redirecting to Yandex Maps for 5-star review');
+                    window.location.href = 'https://yandex.ru/maps/org/fitnes_ugolok/156758960674/reviews/';
+                } else {
+                    console.log('Redirecting to Telegram chat for review');
+                    const message = `Отзыв от ${userName}: ${reviewText} (Оценка: ${rating})`;
+                    window.location.href = `https://t.me/TotalBodyVernadskogo?text=${encodeURIComponent(message)}`;
+                }
 
-                const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-                reviews.unshift(review);
-                localStorage.setItem('reviews', JSON.stringify(reviews));
-                console.log('Review saved to localStorage');
-
-                updateReviewsList();
-
+                // Очищаем форму
                 document.querySelector('#review-text').value = '';
                 ratingButtons.forEach(btn => btn.classList.remove('active'));
 
                 alert('Спасибо за ваш отзыв!');
             });
         }
-
-        // Обработчики для кнопок записи на занятие
-        if (DOM.scheduleContainer) {
-            DOM.scheduleContainer.querySelectorAll('.enroll-button').forEach((button, index) => {
-                button.addEventListener('click', () => {
-                    const lesson = scheduleData.weeks[0].days[0].classes[index];
-                    const selectedStudio = studios.find(s => s.id === parseInt(DOM.studioSelect?.value || '1'));
-                    console.log('Enrollment requested for lesson:', lesson.name);
-
-                    const enrollmentData = {
-                        type: 'enrollment',
-                        lesson: {
-                            time: lesson.time,
-                            name: lesson.name,
-                            trainer: lesson.trainer,
-                            studio: selectedStudio.name,
-                            date: scheduleData.weeks[0].days[0].date
-                        }
-                    };
-                    console.log('Enrollment data:', enrollmentData);
-
-                    tg.sendData(JSON.stringify(enrollmentData));
-                    console.log('Enrollment data sent to Telegram');
-
-                    lesson.enrolled++;
-                    console.log('Enrolled count updated:', lesson.enrolled);
-
-                    showPage('schedule'); // Перерендерим страницу расписания
-
-                    alert('Вы успешно записались на занятие!');
-                });
-            });
-        }
     }
 
-    // Обновление списка отзывов
-    function updateReviewsList() {
-        if (!DOM.reviewsList) return;
-
-        const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-        
-        if (reviews.length === 0) {
-            DOM.reviewsList.innerHTML = '<p class="no-reviews">Пока нет отзывов. Будьте первым!</p>';
+    // Обновлено: реальная подписка на Telegram-бота
+    async function subscribeToBot() {
+        console.log('Subscribing to bot');
+        const userData = tg.initDataUnsafe?.user;
+        if (!userData) {
+            console.warn('User data not available for subscription');
             return;
         }
 
-        DOM.reviewsList.innerHTML = reviews.map(review => `
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-rating">
-                        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
-                    </div>
-                    <div class="review-meta">
-                        <span class="review-author">${review.userName}</span>
-                        <span class="review-date">${formatDate(new Date(review.date))}</span>
-                    </div>
-                </div>
-                <p class="review-text">${review.text}</p>
-            </div>
-        `).join('');
+        const botToken = "7498555936:AAG270jJhDjkjNnXRPnggO5ITiW0Y4waJk4";
+        const data = {
+            type: 'subscription',
+            userId: userData.id,
+            firstName: userData.first_name,
+            lastName: userData.last_name || '',
+            username: userData.username || ''
+        };
+        console.log('Subscription data:', data);
+
+        try {
+            // Отправляем данные боту через Telegram API
+            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: userData.id,
+                    text: `Добро пожаловать в Total Body!\nИмя: ${data.firstName}\nФамилия: ${data.lastName}\nUsername: ${data.username}`
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send subscription data');
+            }
+
+            console.log('Subscription data sent to Telegram bot');
+            tg.sendData(JSON.stringify(data));
+
+            // Сохраняем подписчика в localStorage
+            const subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
+            subscribers.push(data);
+            localStorage.setItem('subscribers', JSON.stringify(subscribers));
+            console.log('Subscriber saved to localStorage');
+
+        } catch (error) {
+            console.error('Error subscribing to bot:', error);
+            alert('Произошла ошибка при подписке на бота. Пожалуйста, попробуйте позже.');
+        }
     }
 
     // Show initial page
