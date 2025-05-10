@@ -432,6 +432,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Booking form submitted');
 
                 const formData = new FormData(DOM.bookingForm);
+                const phone = formData.get('phone');
+
+                // Валидация номера телефона
+                const phoneRegex = /^(\+7|8)\d{10}$/;
+                if (!phoneRegex.test(phone)) {
+                    console.log('Phone validation failed:', phone);
+                    alert('Введите корректный номер телефона (например, +79991234567)');
+                    return;
+                }
+                console.log('Phone validation passed:', phone);
+
                 const bookingData = {
                     type: 'booking',
                     name: formData.get('name'),
