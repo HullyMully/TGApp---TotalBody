@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Обработчик отправки формы записи
         if (DOM.bookingForm) {
-            DOM.bookingForm.addEventListener('submit', (e) => {
+            DOM.bookingForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 console.log('Booking form submitted');
 
@@ -452,6 +452,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 console.log('Booking data:', bookingData);
 
+                // Отправка данных администратору через Telegram API
+                const botToken = "7498555936:AAG270jJhDjkjNnXRPnggO5ITiW0Y4waJk4";
+                const adminId = "5947469995";
+                const message = `Новая запись на пробное занятие:\nИмя: ${bookingData.name}\nТелефон: ${bookingData.phone}\nДата: ${bookingData.date}\nСтудия: ${bookingData.studio}`;
+
+                try {
+                    console.log('Sending booking data to admin');
+                    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: adminId,
+                            text: message
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    console.log('Booking data sent to admin');
+                } catch (error) {
+                    console.error('Failed to send booking data to admin:', error);
+                }
+
+                // Продолжаем стандартную обработку формы
                 tg.sendData(JSON.stringify(bookingData));
                 console.log('Booking data sent to Telegram');
 
