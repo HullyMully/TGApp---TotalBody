@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 nameInput.value = `${userData.first_name} ${userData.last_name || ''}`.trim();
                 console.log('Name field populated:', nameInput.value);
             }
-            // Обновлено: реальная подписка на Telegram-бота
+            // Обновлено: реальная подписка на Telegram-бота с проверкой однократной подписки
             subscribeToBot();
         } else {
             console.warn('User data not available');
@@ -532,9 +532,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Обновлено: реальная подписка на Telegram-бота
+    // Обновлено: реальная подписка на Telegram-бота с проверкой однократной подписки
     async function subscribeToBot() {
-        console.log('Subscribing to bot');
+        console.log('Checking subscription status...');
+        
+        // Проверяем, была ли уже выполнена подписка
+        const isSubscribed = localStorage.getItem('isSubscribed');
+        if (isSubscribed === 'true') {
+            console.log('Subscription skipped: already subscribed');
+            return;
+        }
+
         const userData = tg.initDataUnsafe?.user;
         if (!userData) {
             console.warn('User data not available for subscription');
@@ -575,7 +583,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
             subscribers.push(data);
             localStorage.setItem('subscribers', JSON.stringify(subscribers));
-            console.log('Subscriber saved to localStorage');
+            
+            // Устанавливаем флаг подписки
+            localStorage.setItem('isSubscribed', 'true');
+            console.log('Subscription completed and saved');
 
         } catch (error) {
             console.error('Error subscribing to bot:', error);
