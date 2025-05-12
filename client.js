@@ -154,9 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="apple-hero">
                 <div class="apple-hero-bg"></div>
                 <div class="apple-hero-content">
-                    <h1>Тренировки для всех</h1>
+                    <h1>Красота и стройность — просто. Как улыбка.</h1>
                     <p class="apple-hero-subtitle">
-                        Современные форматы для любого уровня: растяжка, аэройога, фитнес, танцы.<br>
+                        Твоя красота начинается здесь.  Женские тренировки рядом с домом.<br>
                         Группы до 15 человек, индивидуальный подход, уютная атмосфера.
                     </p>
                     <ul class="apple-hero-features">
@@ -175,8 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="apple-directions">
                 <h2>Выбери своё направление</h2>
                 <p class="apple-directions-subtitle">
-                    Нет «сложных» тренировок — только подходящие именно тебе.<br>
-                    Попробуй разные форматы и найди свой!
+                    Ты не обязана всё знать заранее. Просто выбери, что тебе сейчас ближе — расслабиться,<br>
+                    укрепиться или добавить энергии. А мы подскажем, что подойдёт.
                 </p>
                 <div class="apple-directions-carousel carousel">
                     <div class="apple-direction-card">
@@ -358,8 +358,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="apple-directions">
                 <h2>Выбери своё направление</h2>
                 <p class="apple-directions-subtitle">
-                    Нет «сложных» тренировок — только подходящие именно тебе.<br>
-                    Попробуй разные форматы и найди свой!
+             Ты не обязана всё знать заранее. Просто выбери, что тебе сейчас ближе — расслабиться,
+                    укрепиться или добавить энергии. А мы подскажем, что подойдёт.
                 </p>
                 <div class="apple-directions-carousel carousel">
                     <div class="apple-direction-card">
@@ -1177,4 +1177,41 @@ document.addEventListener('DOMContentLoaded', () => {
         const root = document.getElementById('trainer-modal-root');
         if (root) root.innerHTML = '';
     }
+
+    window.showPopup = function() {
+        // Если попап уже открыт — не создавать второй
+        if (document.getElementById('popup-overlay')) return;
+        const directions = [
+            'Растяжка',
+            'Аэройога',
+            'Фитнес',
+            'Танцы'
+        ];
+        const popup = document.createElement('div');
+        popup.id = 'popup-overlay';
+        popup.innerHTML = `
+            <div class="popup-backdrop" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.45);z-index:3000;"></div>
+            <div class="popup-form-wrap" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:22px;box-shadow:0 8px 32px rgba(141,19,66,0.13);padding:32px 24px 24px 24px;z-index:3010;min-width:320px;max-width:95vw;display:flex;flex-direction:column;align-items:center;">
+                <button class="popup-close-btn" style="position:absolute;top:18px;right:18px;background:none;border:none;font-size:1.3em;color:#8D1342;cursor:pointer;" onclick="document.getElementById('popup-overlay').remove()">×</button>
+                <h2 style="color:#8D1342;margin-bottom:18px;font-size:1.25em;">Запись на пробное занятие</h2>
+                <form id="popup-form" style="width:100%;display:flex;flex-direction:column;gap:14px;">
+                    <input type="text" name="name" placeholder="Ваше имя" required style="padding:10px 12px;border-radius:10px;border:1.5px solid #F0E5DA;font-size:1em;">
+                    <input type="tel" name="phone" placeholder="Телефон" required style="padding:10px 12px;border-radius:10px;border:1.5px solid #F0E5DA;font-size:1em;">
+                    <select name="direction" required style="padding:10px 12px;border-radius:10px;border:1.5px solid #F0E5DA;font-size:1em;">
+                        <option value="" disabled selected>Выберите направление</option>
+                        ${directions.map(d => `<option value="${d}">${d}</option>`).join('')}
+                    </select>
+                    <button type="submit" style="background:linear-gradient(90deg,#FF5733 0%,#8D1342 100%);color:#fff;font-size:1.08em;font-weight:600;border:none;border-radius:14px;padding:10px 0;cursor:pointer;margin-top:8px;">Записаться</button>
+                </form>
+            </div>
+        `;
+        document.body.appendChild(popup);
+        // Обработка отправки формы
+        document.getElementById('popup-form').onsubmit = function(e) {
+            e.preventDefault();
+            // Здесь можно добавить отправку данных на сервер или в Telegram
+            popup.remove();
+            alert('Спасибо за заявку! Мы свяжемся с вами.');
+        };
+    };
 });
