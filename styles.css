@@ -1249,7 +1249,7 @@ button:hover {
   background: #fff;
   border-radius: 32px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-  margin: 32px auto 24px;
+  margin: 0 auto 24px;
   max-width: 700px;
   padding: 48px 32px 32px 32px;
   overflow: hidden;
@@ -1649,8 +1649,8 @@ body {
 }
 @media (max-width: 600px) {
   .apple-direction-card, .trainer-card {
-    min-width: 92vw;
-    max-width: 98vw;
+    min-width: 82vw;
+    max-width: 88vw;
     padding: 12px 2vw;
   }
 }

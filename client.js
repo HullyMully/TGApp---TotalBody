@@ -154,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="apple-hero">
                 <div class="apple-hero-bg"></div>
                 <div class="apple-hero-content">
-                    <label for="studio-select" class="studio-label">Выберите студию:</label>
                     <h1>Красота и стройность — просто. Как улыбка.</h1>
                     <p class="apple-hero-subtitle">
                         Твоя красота начинается здесь.  Женские тренировки рядом с домом.<br>
