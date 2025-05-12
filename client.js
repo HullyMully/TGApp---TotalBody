@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="apple-hero">
                 <div class="apple-hero-bg"></div>
                 <div class="apple-hero-content">
+                    <label for="studio-select" class="studio-label">Выберите студию:</label>
                     <h1>Красота и стройность — просто. Как улыбка.</h1>
                     <p class="apple-hero-subtitle">
                         Твоя красота начинается здесь.  Женские тренировки рядом с домом.<br>
@@ -165,9 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <li>👩‍🏫 <b>Профессиональные тренеры</b> — поддержка и мотивация</li>
                     </ul>
                     <button class="apple-cta" onclick="showPopup()">Записаться на пробное занятие за 500 ₽</button>
-                    <div class="apple-hero-note">
-                        <span>🎧</span> Онлайн-тренировки и аудиосопровождение
-                    </div>
+                                        <select id="studio-select" class="studio-select-apple">
+                        ${studios.map((studio, idx) => `<option value="${idx}" ${idx === selectedStudioIndex ? 'selected' : ''}>${studio.name}</option>`).join('')}
+                    </select>
                 </div>
             </div>
         `,
@@ -180,38 +181,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 </p>
                 <div class="apple-directions-carousel carousel">
                     <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">🧘‍♀️</span>
-                        <h3>Растяжка</h3>
-                        <p>Гибкость, лёгкость, здоровье спины</p>
+                        <h3>Силовые и кардио-тренировки</h3>
+                        <div style="margin-bottom: 8px; color: #8D1342; font-weight: 500;">💪 Подойдут тебе, если ты хочешь:</div>
+                        <ul style="text-align:left; margin:0 0 10px 0; padding-left:18px; color:#8D1342;">
+                            <li>— подтянуть тело</li>
+                            <li>— сбросить напряжение через активность</li>
+                            <li>— почувствовать энергию и контроль над своим телом</li>
+                        </ul>
+                        <div class="direction-formats" style="margin-top:8px; color:#FF5733; font-weight:600;">🔥 Форматы: <span style="color:#8D1342; font-weight:400;">функциональный фитнес, женские круговые, кардио-миксы</span></div>
                     </div>
                     <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">🤸‍♂️</span>
-                        <h3>Аэройога</h3>
-                        <p>Антигравитация, релакс, новые ощущения</p>
+                        <h3>Растяжка и мягкие тренировки</h3>
+                        <div style="margin-bottom: 8px; color: #8D1342; font-weight: 500;">🧘 Подойдут тебе, если ты хочешь:</div>
+                        <ul style="text-align:left; margin:0 0 10px 0; padding-left:18px; color:#8D1342;">
+                            <li>— стать гибкой без насилия над собой</li>
+                            <li>— снять напряжение в спине и шее</li>
+                            <li>— научиться слышать своё тело</li>
+                        </ul>
+                        <div class="direction-formats" style="margin-top:8px; color:#FF5733; font-weight:600;">💫 Форматы: <span style="color:#8D1342; font-weight:400;">стретчинг, шпагаты, мягкое вытяжение</span></div>
                     </div>
                     <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">💃</span>
-                        <h3>Танцы</h3>
-                        <p>Драйв, пластика, настроение</p>
+                        <h3>Йога и аэройога</h3>
+                        <div style="margin-bottom: 8px; color: #8D1342; font-weight: 500;">🌬 Подойдут тебе, если ты хочешь:</div>
+                        <ul style="text-align:left; margin:0 0 10px 0; padding-left:18px; color:#8D1342;">
+                            <li>— отпустить тревожность и восстановиться</li>
+                            <li>— улучшить осанку и дыхание</li>
+                            <li>— разгрузить тело после сидячей работы</li>
+                        </ul>
+                        <div class="direction-formats" style="margin-top:8px; color:#FF5733; font-weight:600;">💫 Форматы: <span style="color:#8D1342; font-weight:400;">хатха, аэройога в гамаках, дыхательные практики</span></div>
                     </div>
                     <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">🏋️‍♂️</span>
-                        <h3>Фитнес</h3>
-                        <p>Сила, выносливость, результат</p>
-                    </div>
-                    <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">🧑‍⚕️</span>
-                        <h3>Здоровая спина</h3>
-                        <p>Профилактика и восстановление</p>
-                    </div>
-                    <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">👶</span>
-                        <h3>Детские группы</h3>
-                        <p>Развитие, игра, социализация</p>
+                        <h3>Танцевальные направления</h3>
+                        <div style="margin-bottom: 8px; color: #8D1342; font-weight: 500;">💃 Подойдут тебе, если ты хочешь:</div>
+                        <ul style="text-align:left; margin:0 0 10px 0; padding-left:18px; color:#8D1342;">
+                            <li>— раскрыть женственность и тело</li>
+                            <li>— почувствовать уверенность в движении</li>
+                            <li>— прокачать пластику и наслаждаться собой</li>
+                        </ul>
+                        <div class="direction-formats" style="margin-top:8px; color:#FF5733; font-weight:600;">💫 Форматы: <span style="color:#8D1342; font-weight:400;">high heels, strip plastic, frame up, женская хореография</span></div>
                     </div>
                 </div>
                 <button class="apple-cta" onclick="showPopup()">Попробовать за 500 ₽</button>
-            </div>
+                        </div>
         `,
         'trainers-schedule': `
             <div class="trainers-schedule-content">
@@ -240,46 +251,50 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="trainings-content">
                 <h2>Что выбрать? Тренировки, которые подходят под твой ритм и желания</h2>
                 <p class="trainings-intro">Ты не обязана всё знать заранее. Просто выбери, что тебе сейчас ближе — расслабиться, укрепиться или добавить энергии. А мы подскажем, что подойдёт.</p>
-                <div class="trainings-grid">
+                <div class="trainings-carousel carousel">
                     <div class="training-card">
-                        <span class="training-icon">💪</span>
+                        <span class="training-icon">💪 </span>
                         <h3>Силовые и кардио-тренировки</h3>
-                        <ul class="training-benefits">
-                            <li>подтянуть тело</li>
-                            <li>сбросить напряжение</li>
-                            <li>энергия и контроль</li>
+                        <div style="margin-bottom: 8px; color: #8D1342; font-weight: 500;"> Подойдут тебе, если ты хочешь:</div>
+                        <ul style="text-align:left; margin:0 0 10px 0; padding-left:18px; color:#8D1342;">
+                            <li>— подтянуть тело</li>
+                            <li>— сбросить напряжение через активность</li>
+                            <li>— почувствовать энергию и контроль над своим телом</li>
                         </ul>
-                        <p class="training-formats">Форматы: функциональный фитнес, женские круговые, кардио-миксы</p>
-                        </div>
+                        <div class="direction-formats" style="margin-top:8px; color:#FF5733; font-weight:600;">🔥 Форматы: <span style="color:#8D1342; font-weight:400;">функциональный фитнес, женские круговые, кардио-миксы</span></div>
+                    </div>
                     <div class="training-card">
-                        <span class="training-icon">🧘</span>
+                        <span class="training-icon">🧘 </span>
                         <h3>Растяжка и мягкие тренировки</h3>
-                        <ul class="training-benefits">
-                            <li>гибкость без насилия</li>
-                            <li>снятие напряжения</li>
-                            <li>слушать тело</li>
+                        <div style="margin-bottom: 8px; color: #8D1342; font-weight: 500;"> Подойдут тебе, если ты хочешь:</div>
+                        <ul style="text-align:left; margin:0 0 10px 0; padding-left:18px; color:#8D1342;">
+                            <li>— стать гибкой без насилия над собой</li>
+                            <li>— снять напряжение в спине и шее</li>
+                            <li>— научиться слышать своё тело</li>
                         </ul>
-                        <p class="training-formats">Форматы: стретчинг, шпагаты, мягкое вытяжение</p>
+                        <div class="direction-formats" style="margin-top:8px; color:#FF5733; font-weight:600;">💫 Форматы: <span style="color:#8D1342; font-weight:400;">стретчинг, шпагаты, мягкое вытяжение</span></div>
                     </div>
                     <div class="training-card">
                         <span class="training-icon">🌬</span>
                         <h3>Йога и аэройога</h3>
-                        <ul class="training-benefits">
-                            <li>отпустить тревожность</li>
-                            <li>осанка и дыхание</li>
-                            <li>разгрузка</li>
+                        <div style="margin-bottom: 8px; color: #8D1342; font-weight: 500;"> Подойдут тебе, если ты хочешь:</div>
+                        <ul style="text-align:left; margin:0 0 10px 0; padding-left:18px; color:#8D1342;">
+                            <li>— отпустить тревожность и восстановиться</li>
+                            <li>— улучшить осанку и дыхание</li>
+                            <li>— разгрузить тело после сидячей работы</li>
                         </ul>
-                        <p class="training-formats">Форматы: хатха, аэройога в гамаках, дыхательные практики</p>
+                        <div class="direction-formats" style="margin-top:8px; color:#FF5733; font-weight:600;">💫 Форматы: <span style="color:#8D1342; font-weight:400;">хатха, аэройога в гамаках, дыхательные практики</span></div>
                         </div>
                     <div class="training-card">
                         <span class="training-icon">💃</span>
                         <h3>Танцевальные направления</h3>
-                        <ul class="training-benefits">
-                            <li>раскрыть женственность</li>
-                            <li>уверенность</li>
-                            <li>пластика</li>
+                        <div style="margin-bottom: 8px; color: #8D1342; font-weight: 500;"> Подойдут тебе, если ты хочешь:</div>
+                        <ul style="text-align:left; margin:0 0 10px 0; padding-left:18px; color:#8D1342;">
+                            <li>— раскрыть женственность и тело</li>
+                            <li>— почувствовать уверенность в движении</li>
+                            <li>— прокачать пластику и наслаждаться собой</li>
                         </ul>
-                        <p class="training-formats">Форматы: high heels, strip plastic, frame up, женская хореография</p>
+                        <div class="direction-formats" style="margin-top:8px; color:#FF5733; font-weight:600;">💫 Форматы: <span style="color:#8D1342; font-weight:400;">high heels, strip plastic, frame up, женская хореография</span></div>
                     </div>
                 </div>
             </div>
@@ -300,11 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span class="social-icon">💬</span> VK
                             </a>
                         </li>
-                        <li>
-                            <a href="https://instagram.com/totalbody" class="social-link instagram" target="_blank">
-                                <span class="social-icon">📸</span> Instagram
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
 
@@ -321,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </li>
                         `).join('')}
                     </ul>
-                </div>
+            </div>
             </div>
         `
     };
@@ -336,64 +347,82 @@ document.addEventListener('DOMContentLoaded', () => {
         bookingForm: null
     };
 
-    function renderStudioSelector() {
-        return `
-            <div class="studio-selector-apple compact">
-                <img src="logo.png" alt="Total Body Logo" class="studio-logo-square">
-                <label for="studio-select" class="studio-label">Выберите студию:</label>
-                <select id="studio-select" class="studio-select-apple">
-                    ${studios.map((studio, idx) => `<option value="${idx}" ${idx === selectedStudioIndex ? 'selected' : ''}>${studio.name}</option>`).join('')}
-                </select>
-            </div>
-        `;
-    }
-
     function renderHomeSection(studio) {
         return pages.home;
     }
 
     function renderDirectionsSection(studio) {
-        // Горизонтальный скролл
+        // Данные направлений с реальными фото
+        const directions = [
+            {
+                name: "Растяжка (стретчинг)",
+                photo: "source/direction/rastyaj.jpg",
+                short: "Мягкое развитие гибкости, расслабление мышц, улучшение осанки.",
+                full: "Растяжка — это мягкая практика для любого уровня. Помогает снять напряжение, улучшить осанку и почувствовать лёгкость в теле."
+            },
+            {
+                name: "Аэройога",
+                icon: "🤸‍♂️",
+                photo: "source/direction/aieyoga.jpg",
+                short: "Тренировки в гамаках, снятие напряжения, проработка спины.",
+                full: "Аэройога — это тренировки в специальных гамаках. Снимает напряжение, помогает проработать спину и раскрыть новые ощущения."
+            },
+            {
+                name: "Фитнес",
+                icon: "💪",
+                photo: "source/direction/fitnes.jpg",
+                short: "Силовые и кардио-тренировки с женским подходом, укрепление и тонус.",
+                full: "Фитнес — это силовые и кардио-тренировки, которые укрепляют тело, делают его подтянутым и энергичным. Женский подход и поддержка тренера."
+            },
+            {
+                name: "High Heels & Strip Dance",
+                icon: "👠",
+                photo: "source/direction/High Heels & Strip Dance .jpg",
+                short: "Танцы на каблуках, развитие пластики, уверенности и женственности.",
+                full: "High Heels & Strip Dance — это танцы для раскрытия женственности, уверенности и пластики. Подходит для любого уровня."
+            },
+            {
+                name: "Здоровая спина",
+                icon: "🧑‍⚕️",
+                photo: "source/direction/heltfback.jpg",
+                short: "Специальная программа для тех, кто чувствует зажатость, боль или усталость.",
+                full: "Здоровая спина — это тренировки для профилактики и снятия боли, укрепления мышц спины и улучшения самочувствия."
+            },
+            {
+                name: "МФР (миофасциальный релиз)",
+                icon: "🌀",
+                photo: "source/direction/mfr.jpg",
+                short: "Работа с глубоким напряжением, расслабление через дыхание и роллы.",
+                full: "МФР — это техника расслабления мышц и фасций с помощью роллов и дыхания. Помогает снять глубокое напряжение и улучшить подвижность."
+            }
+        ];
+        // Генерируем карточки
+        const cards = directions.map((d, i) => `
+            <div class="apple-direction-card" data-idx="${i}">
+                <div class="direction-photo-wrap">
+                    ${d.photo ? `<img src='${d.photo}' alt='${d.name}' class='direction-photo'>` : `<span class='apple-direction-emoji'>${d.icon}</span>`}
+                </div>
+                <h3>${d.name}</h3>
+                <div class="direction-short">${d.short}</div>
+                <button class="direction-more-btn" onclick="toggleDirectionDesc(${i})">Подробнее</button>
+                <div class="direction-full" id="direction-full-${i}" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.3s,opacity 0.3s;">${d.full}</div>
+            </div>
+        `).join('');
+        // Основной рендер
         return `
             <div class="apple-directions">
-                <h2>Выбери своё направление</h2>
-                <p class="apple-directions-subtitle">
-             Ты не обязана всё знать заранее. Просто выбери, что тебе сейчас ближе — расслабиться,
-                    укрепиться или добавить энергии. А мы подскажем, что подойдёт.
-                </p>
-                <div class="apple-directions-carousel carousel">
-                    <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">🧘‍♀️</span>
-                        <h3>Растяжка</h3>
-                        <p>Гибкость, лёгкость, здоровье спины</p>
-                    </div>
-                    <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">🤸‍♂️</span>
-                        <h3>Аэройога</h3>
-                        <p>Антигравитация, релакс, новые ощущения</p>
-                    </div>
-                    <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">💃</span>
-                        <h3>Танцы</h3>
-                        <p>Драйв, пластика, настроение</p>
-                    </div>
-                    <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">🏋️‍♂️</span>
-                        <h3>Фитнес</h3>
-                        <p>Сила, выносливость, результат</p>
-                    </div>
-                    <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">🧑‍⚕️</span>
-                        <h3>Здоровая спина</h3>
-                        <p>Профилактика и восстановление</p>
-                    </div>
-                    <div class="apple-direction-card">
-                        <span class="apple-direction-emoji">👶</span>
-                        <h3>Детские группы</h3>
-                        <p>Развитие, игра, социализация</p>
-                    </div>
+                <h2>Выбери своё направление — тренировка, которая подойдёт именно тебе</h2>
+                <div class="apple-directions-subtitle" style="margin-bottom:18px;">
+                    У нас нет «сложных» тренировок — только те, которые помогают раскрыть тело и почувствовать себя лучше.<br><br>
+                    Ты можешь начать с любого формата — даже если никогда раньше не занималась.
                 </div>
-                <button class="apple-cta" onclick="showPopup()">Попробовать за 500 ₽</button>
+                <div class="apple-directions-carousel carousel">
+                    ${cards}
+                </div>
+                <div class="apple-directions-tip" style="background:#F0E5DA;border-radius:16px;padding:18px 16px;margin:18px 0 0 0;color:#8D1342;font-size:1.08em;">
+                    💡 <b>Не знаешь, с чего начать?</b> Запишись на пробное, и мы подберём лучшее направление под твои цели и состояние.
+                </div>
+                <button class="apple-cta" style="margin-top:24px;" onclick="showPopup()">Попробовать пробную тренировку с опытным тренером за 500 ₽</button>
             </div>
         `;
     }
@@ -493,32 +522,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const youtubeId = 'dQw4w9WgXcQ'; // Можно заменить на другой id
         const faqs = [
             {
-                q: 'Какие абонементы у вас есть?',
-                a: 'У нас есть несколько вариантов абонементов: утренние (до 14:00), дневные (с 14:00 до 17:00), полный день, индивидуальные занятия.'
+                q: 'Какие есть абонементы?',
+                a: 'В студиях представлена широкая линейка абонементов: утренние, дневные и полного дня. Средний формат — 8 занятий в месяц. После первого занятия тренер составит программу, и мы подберем удобный формат под ваши цели.'
             },
             {
-                q: 'Как записаться на пробное занятие?',
-                a: 'Вы можете записаться на пробное занятие через наш сайт, по телефону или в студии. Пробное занятие стоит 500 рублей.'
+                q: 'Что взять с собой на тренировку?',
+                a: 'Удобную спортивную форму (лосины/топ), воду и хорошее настроение. Всё остальное (коврики, оборудование, гамаки) предоставляется в студии.'
             },
             {
-                q: 'Что нужно взять с собой на первое занятие?',
-                a: 'Спортивную форму, сменную обувь, полотенце и бутылку воды. Всё необходимое оборудование предоставляется студией.'
+                q: 'Как записаться и где посмотреть расписание?',
+                a: 'Вы можете записаться на пробное занятие через сайт. Расписание и доступные направления мы вышлем вам после заявки в мессенджере или на почту.'
             },
             {
-                q: 'Есть ли у вас раздевалки и душевые?',
-                a: 'Да, в каждой студии есть комфортные раздевалки с душевыми кабинами, шкафчиками и фенами.'
+                q: 'Есть ли подарочные сертификаты?',
+                a: 'Да, у нас есть подарочные сертификаты на любую сумму или определённое количество занятий. Отличный вариант для заботливого подарка.'
             },
             {
-                q: 'Можно ли заниматься с нуля?',
-                a: 'Конечно! Наши тренеры адаптируют программу под ваш уровень подготовки. Есть специальные группы для начинающих.'
+                q: 'Какое направление мне подойдёт?',
+                a: 'Мы подскажем! На пробном занятии тренер оценит уровень подготовки и цели, после чего порекомендует оптимальный формат. Вы точно найдёте своё.'
             },
             {
-                q: 'Как часто нужно заниматься?',
-                a: 'Рекомендуем заниматься 2-3 раза в неделю для достижения оптимальных результатов. Но график можно подобрать индивидуально.'
+                q: 'Разбивка платежа — это кредит?',
+                a: 'Нет, это удобная система оплаты — вы можете платить за абонемент частями, без процентов и без оформления кредита.'
             },
             {
-                q: 'Есть ли у вас парковка?',
-                a: 'Да, у каждой студии есть парковка. Подробности можно уточнить у администратора.'
+                q: 'Если я не успею посетить все занятия, они сгорят?',
+                a: 'Нет. Мы можем перенести занятия или заморозить абонемент по уважительной причине. Нам важно, чтобы вы занимались комфортно и без давления.'
+            },
+            {
+                q: 'Как получить занятия в подарок?',
+                a: 'У нас действуют акции: пригласи подругу — получи занятие в подарок. Также мы дарим тренировки за участие в мероприятиях и активность в нашем сообществе.'
             }
         ];
         return `
@@ -588,11 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span class="social-icon">💬</span> VK
                             </a>
                         </li>
-                        <li>
-                            <a href="https://instagram.com/totalbody" class="social-link instagram" target="_blank">
-                                <span class="social-icon">📸</span> Instagram
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="contact-section">
@@ -619,16 +648,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!mainContent) return;
         const studio = studios[selectedStudioIndex];
         mainContent.innerHTML = [
-            renderStudioSelector(),
             `<div class="screen-section">${renderHomeSection(studio)}</div>`,
-            `<div class="screen-section">${renderDirectionsSection(studio)}</div>`,
+            `<div class="screen-section">${pages.trainings}</div>`,
             `<div class="screen-section">${renderTrainersSection(studio)}</div>`,
             `<div class="screen-section">${renderVideoFaqGeoSection(studio)}</div>`,
+            `<div class="screen-section">${renderDirectionsSection(studio)}</div>`,
             `<div class="screen-section">${renderReviewsPhotosSection(studio)}</div>`,
             `<div class="screen-section">${renderSocialGeoSection(studio)}</div>`
         ].join('');
 
-        // Обработчик смены студии
+        // Обработчик смены студии для нового селектора
         const studioSelect = document.getElementById('studio-select');
         if (studioSelect) {
             studioSelect.addEventListener('change', (e) => {
@@ -813,28 +842,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Функция для показа попапа с формой
     function showPopup() {
+        // Лог открытия попапа
         console.log('Popup opened');
-        
         // Создаем элементы попапа
         const popup = document.createElement('div');
         popup.className = 'popup';
-        
         const popupContent = document.createElement('div');
         popupContent.className = 'popup-content';
-        
         const closeButton = document.createElement('button');
         closeButton.className = 'popup-close';
         closeButton.innerHTML = '×';
         closeButton.onclick = () => {
             document.body.removeChild(popup);
         };
-        
+        // Обработка клика по фону для закрытия попапа
+        popup.addEventListener('mousedown', (e) => {
+            if (e.target === popup) {
+                document.body.removeChild(popup);
+            }
+        });
         const form = document.createElement('form');
+        form.className = 'popup-form';
         form.innerHTML = `
-            <h2>Запись на пробное занятие</h2>
-            <input type="text" name="name" placeholder="Ваше имя" required>
-            <input type="tel" name="phone" placeholder="Телефон" required>
-            <select name="direction" required>
+            <h2 class="popup-title">Запись на пробное занятие</h2>
+            <input type="text" name="name" placeholder="Ваше имя" required class="popup-input">
+            <input type="tel" name="phone" placeholder="Телефон" required class="popup-input">
+            <select name="direction" required class="popup-select">
                 <option value="">Выберите направление</option>
                 <option value="Растяжка">Растяжка</option>
                 <option value="Аэройога">Аэройога</option>
@@ -842,26 +875,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 <option value="Танцы">Танцы</option>
                 <option value="Здоровая спина">Здоровая спина</option>
             </select>
-            <button type="submit">Отправить</button>
+            <button type="submit" class="popup-submit">Отправить</button>
         `;
-        
-        form.onsubmit = (e) => {
+        // Обработчик отправки формы
+        form.onsubmit = async (e) => {
             e.preventDefault();
+            // Лог отправки формы
             console.log('Form submitted from popup');
-            
             const formData = new FormData(form);
-            const data = {
-                type: 'popup_booking',
-                name: formData.get('name'),
-                phone: formData.get('phone'),
-                direction: formData.get('direction')
-            };
-            
-            tg.sendData(JSON.stringify(data));
-            document.body.removeChild(popup);
-            alert('Спасибо за запись! Мы свяжемся с вами в ближайшее время.');
+            const name = formData.get('name');
+            const phone = formData.get('phone');
+            const direction = formData.get('direction');
+            // Валидация телефона: +7XXXXXXXXXX или 8XXXXXXXXXX
+            const phoneRegex = /^(\+7|8)\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+                alert('Введите корректный номер телефона (например, +79991234567 или 89991234567)');
+                form.phone.focus();
+                return;
+            }
+            // Формируем сообщение для Telegram
+            const message = `Новая запись: Имя: ${name}, Телефон: ${phone}, Направление: ${direction}`;
+            const token = "7498555936:AAG270jJhDjkjNnXRPnggO5ITiW0Y4waJk4";
+            const chat_id = "5947469995";
+            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+            try {
+                // Отправка данных через Bot API
+                const response = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ chat_id, text: message })
+                });
+                if (response.ok) {
+                    alert("Спасибо за заявку! Мы свяжемся с вами.");
+                } else {
+                    alert("Ошибка отправки. Попробуйте позже.");
+                }
+            } catch (error) {
+                // Безопасная обработка ошибок
+                alert("Ошибка отправки. Попробуйте позже.");
+            } finally {
+                // Закрываем попап в любом случае
+                document.body.removeChild(popup);
+            }
         };
-        
         popupContent.appendChild(closeButton);
         popupContent.appendChild(form);
         popup.appendChild(popupContent);
@@ -1122,6 +1178,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // --- JS для раскрытия описания направления ---
+    window.toggleDirectionDesc = function(idx) {
+        const el = document.getElementById(`direction-full-${idx}`);
+        if (!el) return;
+        if (el.style.maxHeight === '0px' || el.style.maxHeight === '0' || !el.style.maxHeight) {
+            el.style.maxHeight = '200px';
+            el.style.opacity = '1';
+        } else {
+            el.style.maxHeight = '0';
+            el.style.opacity = '0';
+        }
+    };
+
     // Show initial page
     renderScrollableContent();
 
@@ -1178,7 +1247,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (root) root.innerHTML = '';
     }
 
-    window.showPopup = function() {
+    window.showPopup = showPopup;
+    /* function() {
         // Если попап уже открыт — не создавать второй
         if (document.getElementById('popup-overlay')) return;
         const directions = [
@@ -1214,4 +1284,5 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Спасибо за заявку! Мы свяжемся с вами.');
         };
     };
+    */
 });
