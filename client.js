@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.querySelector('.scrollable-content');
     const tabs = document.querySelectorAll('.tab-item');
     let currentPageId = 'home'; // Добавляем отслеживание текущей страницы
+    let selectedStudioIndex = 0;
 
     // Данные для расписания
     const scheduleData = {
@@ -227,12 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 <p>Расписание доступно после записи</p>
-            </div>
+                        </div>
         `,
         account: `
             <div class="personal-account-container">
                 <iframe id="widgetAccount" src="about:blank" frameborder="0" allowfullscreen></iframe>
-            </div>
+                        </div>
         `,
         trainings: `
             <div class="trainings-content">
@@ -248,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <li>энергия и контроль</li>
                         </ul>
                         <p class="training-formats">Форматы: функциональный фитнес, женские круговые, кардио-миксы</p>
-                    </div>
+                        </div>
                     <div class="training-card">
                         <span class="training-icon">🧘</span>
                         <h3>Растяжка и мягкие тренировки</h3>
@@ -268,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <li>разгрузка</li>
                         </ul>
                         <p class="training-formats">Форматы: хатха, аэройога в гамаках, дыхательные практики</p>
-                    </div>
+                        </div>
                     <div class="training-card">
                         <span class="training-icon">💃</span>
                         <h3>Танцевальные направления</h3>
@@ -409,18 +410,119 @@ document.addEventListener('DOMContentLoaded', () => {
         bookingForm: null
     };
 
-    // Удаляем showPage и обработчики табов
-    // Добавляем функцию для длинной страницы
+    function renderStudioSelector() {
+        return `
+            <div class="studio-selector-container" style="margin-bottom: 24px;">
+                <label for="studio-select" style="font-weight: 600; font-size: 1.1em; margin-right: 8px;">Выберите студию:</label>
+                <select id="studio-select" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #ccc;">
+                    ${studios.map((studio, idx) => `<option value="${idx}" ${idx === selectedStudioIndex ? 'selected' : ''}>${studio.name}</option>`).join('')}
+                </select>
+            </div>
+        `;
+    }
+
+    function renderHomeSection(studio) {
+        return pages.home;
+    }
+
+    function renderDirectionsSection(studio) {
+        return pages.directions;
+    }
+
+    function renderTrainersSection(studio) {
+        return `
+            <div class="trainers-schedule-content">
+                <h2>Тренеры и расписание</h2>
+                <div class="trainers-carousel carousel">
+                    ${studio.trainers.map(trainer => `
+                        <div class="carousel-card">
+                            <img src="${trainer.photo}" alt="${trainer.name}">
+                            <h3>${trainer.name}</h3>
+                            <p>${trainer.specialization}</p>
+                            <p>Опыт: ${trainer.experience}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="schedule-container">
+                    <iframe id="widgetSchedule" src="${studio.widgets.schedule}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderAccountSection(studio) {
+        return `
+            <div class="account-content">
+                <h2>Личный кабинет</h2>
+                <div class="account-container">
+                    <iframe id="widgetAccount" src="${studio.widgets.account}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderVideoFaqGeoSection(studio) {
+        return pages['video-faq-geo'];
+    }
+
+    function renderReviewsPhotosSection(studio) {
+        return pages['reviews-photos'];
+    }
+
+    function renderSocialGeoSection(studio) {
+        return pages['social-geo'];
+    }
+
     function renderScrollableContent() {
+        const mainContent = document.querySelector('.scrollable-content');
         if (!mainContent) return;
+        const studio = studios[selectedStudioIndex];
         mainContent.innerHTML = [
-            pages.home,
-            pages.directions,
-            pages['trainers-schedule'],
-            pages['video-faq-geo'],
-            pages['reviews-photos'],
-            pages['social-geo']
-        ].map(section => `<div class="screen-section">${section}</div>`).join('');
+            renderStudioSelector(),
+            `<div class="screen-section">${renderHomeSection(studio)}</div>`,
+            `<div class="screen-section">${renderDirectionsSection(studio)}</div>`,
+            `<div class="screen-section">${renderTrainersSection(studio)}</div>`,
+            `<div class="screen-section">${renderVideoFaqGeoSection(studio)}</div>`,
+            `<div class="screen-section">${renderReviewsPhotosSection(studio)}</div>`,
+            `<div class="screen-section">${renderSocialGeoSection(studio)}</div>`,
+            `<div class="screen-section">${renderAccountSection(studio)}</div>`
+        ].join('');
+
+        // Обработчик смены студии
+        const studioSelect = document.getElementById('studio-select');
+        if (studioSelect) {
+            studioSelect.addEventListener('change', (e) => {
+                selectedStudioIndex = parseInt(e.target.value, 10);
+                renderScrollableContent();
+            });
+        }
+
+        // Добавляем стили для iframe
+        const style = document.createElement('style');
+        style.textContent = `
+            .schedule-container, .account-container {
+                width: 100%;
+                height: calc(100vh - 60px);
+                margin-top: 20px;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+            .schedule-container iframe, .account-container iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+            
+            @media (max-width: 768px) {
+                .schedule-container, .account-container {
+                    height: calc(100vh - 80px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
         initializeApp();
     }
 
@@ -500,6 +602,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateStudioInfo(studio) {
         console.log('Updating studio info:', studio.name);
         
+        // Преобразуем geo-ссылку в формат Яндекс.Навигатора
+        const [lat, lng] = studio.addressLink.replace('geo:', '').split(',').map(Number);
+        const yandexNavLink = `https://yandex.ru/navi/?whatshere[point]=${lng},${lat}`;
+        
         if (DOM.aboutStudio) {
             DOM.aboutStudio.innerHTML = `
                 <h2>О студии</h2>
@@ -512,7 +618,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <h3>Информация</h3>
                     <ul>
-                        <li>Адрес: <a href="${studio.addressLink}" class="address-link">${studio.address}</a></li>
+                        <li>Адрес: <a href="${yandexNavLink}" class="address-link" target="_blank">${studio.address}</a></li>
                         <li>Телефон: <a href="tel:${studio.phone}">${studio.phone}</a></li>
                         <li>Режим работы: ${studio.schedule}</li>
                     </ul>
@@ -811,7 +917,19 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Subscription data:', data);
 
         try {
-            // Отправляем данные боту через Telegram API
+            // Формируем приветственное сообщение
+            const welcomeMessage = `👋 Добро пожаловать в Total Body, ${data.firstName}!
+
+🎯 Теперь вы будете получать:
+• Уведомления о новых занятиях
+• Специальные предложения
+• Напоминания о записи
+• Новости студии
+
+💪 Начните свой путь к здоровому телу прямо сейчас!
+Запишитесь на пробное занятие за 500 ₽`;
+
+            // Отправляем приветственное сообщение через Telegram API
             const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: {
@@ -819,20 +937,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({
                     chat_id: userData.id,
-                    text: `Добро пожаловать в Total Body!\nИмя: ${data.firstName}\nФамилия: ${data.lastName}\nUsername: ${data.username}`
+                    text: welcomeMessage,
+                    parse_mode: 'HTML'
                 })
             });
 
             if (!response.ok) {
-                throw new Error('Failed to send subscription data');
+                const errorData = await response.json();
+                throw new Error(`Failed to send subscription data: ${errorData.description || response.statusText}`);
             }
 
-            console.log('Subscription data sent to Telegram bot');
+            console.log('Welcome message sent successfully');
+            
+            // Отправляем данные о подписке в Telegram
             tg.sendData(JSON.stringify(data));
+            console.log('Subscription data sent to Telegram');
 
             // Сохраняем подписчика в localStorage
             const subscribers = JSON.parse(localStorage.getItem('subscribers') || '[]');
-            subscribers.push(data);
+            subscribers.push({
+                ...data,
+                subscribedAt: new Date().toISOString()
+            });
             localStorage.setItem('subscribers', JSON.stringify(subscribers));
             
             // Устанавливаем флаг подписки
@@ -841,7 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Error subscribing to bot:', error);
-            alert('Произошла ошибка при подписке на бота. Пожалуйста, попробуйте позже.');
+            alert('Произошла ошибка при подписке на бота. Пожалуйста, попробуйте позже или обратитесь в поддержку.');
         }
     }
 
